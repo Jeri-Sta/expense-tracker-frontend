@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <ul class="menu">
+    <li *ngFor="let item of menuItems" class="dropdown">
+      <a [routerLink]="item.link || '#'">{{ item.label }}</a>
+      <ul *ngIf="item.submenu" class="submenu">
+        <li *ngFor="let sub of item.submenu">
+          <a [routerLink]="sub.link">{{ sub.label }}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

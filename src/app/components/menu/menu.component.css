@@ -1,0 +1,60 @@
+.navbar {
+  background-color: var(--p-surface-900);
+  border-bottom: var(--p-surface-0) 1px solid;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100%;
+}
+
+.menu > li {
+  position: relative;
+  margin-right: 15px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  display: block;
+  height: 100%;
+  align-content: center;
+}
+
+.menu a:hover {
+  background: #555;
+}
+
+/* Estilos para Submenu */
+.dropdown .submenu {
+  display: none;
+  position: absolute;
+  background: var(--p-surface-900);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: var(--p-surface-0) 1px solid;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+
+.submenu li a {
+  padding: 10px;
+  display: block;
+  color: white;
+}
+
+.submenu li a:hover {
+  background: #666;
+  border: 0;
+}
