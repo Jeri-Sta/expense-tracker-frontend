@@ -1,0 +1,7 @@
+.content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0;
+  height: calc(100vh - 50px); /* Altura total menos o header */
+  display: flex;
+}
