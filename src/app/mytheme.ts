@@ -1,6 +1,3 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
 
@@ -664,15 +661,10 @@ export const MyPreset = definePreset(Aura, {
       },
     },
   },
+  components: {
+    datatable: {
+      headerCellBackground: '{surface.800}',
+      rowBackground: '{surface.600}',
+    },
+  },
 });
-
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: MyPreset,
-      },
-    }),
-  ],
-};

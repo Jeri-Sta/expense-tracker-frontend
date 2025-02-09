@@ -1,0 +1,25 @@
+::ng-deep .form-panel .p-panel-content {
+  border: 0;
+  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  height: auto;
+  place-items: start;
+}
+
+::ng-deep .p-dialog-content {
+  overflow: none;
+}
+
+::ng-deep .form-panel .p-panel {
+  border: 0;
+}
+
+::ng-deep .p-dialog {
+  width: fit-content !important;
+  height: fit-content;
+  min-width: 604px !important;
+  min-height: 407px !important;
+}

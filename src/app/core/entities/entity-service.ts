@@ -26,7 +26,7 @@ export class EntityService<T> {
 
     let params = new HttpParams();
     params = params.append('size', String(size));
-    params = params.append('offset', String(page));
+    params = params.append('page', String(page));
 
     if (sort && sort.length) {
       params = params.append(

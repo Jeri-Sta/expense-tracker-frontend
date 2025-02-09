@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EntityService } from '../entity-service';
+import CategoryDto from './category-dto';
+import { MessageService } from 'primeng/api';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class CategoryService {
-  private apiUrl = 'http://localhost:3000';
-
-  constructor(private http: HttpClient) {}
-
-  getMessage(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/`);
+@Injectable()
+export class CategoryService extends EntityService<CategoryDto> {
+  constructor(
+    protected override http: HttpClient,
+    protected override messageService: MessageService
+  ) {
+    super(http, messageService, 'http://localhost:8080/category');
   }
 }
