@@ -30,13 +30,13 @@ export class EntityService<T> {
 
     if (sort && sort.length) {
       params = params.append(
-        'orderby',
+        'sort',
         sort
           .map((s) => {
-            let order = '';
-            if (s.order === 1) order = ' asc';
-            else if (s.order === -1) order = ' desc';
-            return `${s.field}${order}`;
+            let sort = '';
+            if (s.order === 1) sort = ',asc';
+            else if (s.order === -1) sort = ',desc';
+            return `${s.field}${sort}`;
           })
           .join(', ')
       );
@@ -64,12 +64,12 @@ export class EntityService<T> {
     bodyParams.offset = page;
 
     if (sort && sort.length) {
-      bodyParams.orderBy = sort
+      bodyParams.sort = sort
         .map((s) => {
-          let order = '';
-          if (s.order === 1) order = ' asc';
-          else if (s.order === -1) order = ' desc';
-          return `${s.field}${order}`;
+          let sort = '';
+          if (s.order === 1) sort = ',asc';
+          else if (s.order === -1) sort = ',desc';
+          return `${s.field}${sort}`;
         })
         .join(', ');
     }
@@ -140,7 +140,7 @@ export interface ListParams {
 export interface BodyParams {
   offset?: number;
   size?: number;
-  orderBy?: string;
+  sort?: string;
   filter?: string;
   displayfields?: string;
 }

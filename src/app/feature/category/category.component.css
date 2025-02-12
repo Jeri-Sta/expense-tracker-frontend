@@ -10,7 +10,7 @@
 }
 
 ::ng-deep .p-dialog-content {
-  overflow: none;
+  overflow: visible;
 }
 
 ::ng-deep .form-panel .p-panel {

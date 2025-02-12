@@ -34,11 +34,18 @@ export class CategoryComponent implements OnInit {
     let paramList = {
       page: 0,
       size: this.pageSize,
+      sort: [
+        {
+          field: 'name',
+          order: 1,
+        },
+      ],
     };
     if (event) {
       const page = event.first! / event.rows!; // Calcula a página com base no primeiro registro
       const size = event.rows!;
       paramList = {
+        ...paramList,
         page: page,
         size: size,
       };
