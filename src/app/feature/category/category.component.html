@@ -65,8 +65,22 @@
   <p-panel class="form-panel" [formGroup]="formGroup">
     <div style="display: flex; flex-direction: column; gap: 2px">
       <label for="name">Nome</label>
-      <input id="name" type="text" pInputText formControlName="name" />
-      <!-- <small id="name">Enter your username to reset your password.</small> -->
+      <input
+        id="name"
+        type="text"
+        pInputText
+        formControlName="name"
+        class="{{ formGroup.get('name')?.invalid ? 'ng-dirty' : '' }}"
+      />
+      <small
+        id="name"
+        class="error"
+        *ngIf="
+          formGroup.get('name')?.dirty &&
+          formGroup.get('name')?.hasError('required')
+        "
+        >Este campo é obrigatório</small
+      >
     </div>
     <div style="display: flex; flex-direction: column; gap: 2px">
       <label for="color">Cor</label>
