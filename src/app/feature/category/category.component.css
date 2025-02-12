@@ -23,3 +23,7 @@
   min-width: 604px !important;
   min-height: 407px !important;
 }
+
+.error {
+  color: var(--p-inputtext-invalid-border-color);
+}

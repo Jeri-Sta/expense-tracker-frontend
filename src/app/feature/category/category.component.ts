@@ -84,6 +84,11 @@ export class CategoryComponent implements OnInit {
   }
 
   saveCategory() {
+    this.validateFormGroup(this.formGroup);
+    if (this.formGroup.invalid) {
+      return;
+    }
+
     let observable: Observable<any>;
     if (this.formGroup.get('id')?.value) {
       observable = this.updateObservaable();
@@ -94,6 +99,14 @@ export class CategoryComponent implements OnInit {
       this.getCategory();
       this.formVisible = false;
       this.formGroup.reset();
+    });
+  }
+
+  validateFormGroup(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach((field: any) => {
+      const control = formGroup.get(field);
+      control?.updateValueAndValidity();
+      control?.markAsDirty();
     });
   }
 
