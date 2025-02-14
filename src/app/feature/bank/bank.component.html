@@ -1,5 +1,5 @@
-<p-panel header="Category">
-  <p-button (click)="newCategory()" label="Novo" icon="pi pi-plus"></p-button>
+<p-panel header="Banco">
+  <p-button (click)="newBank()" label="Novo" icon="pi pi-plus"></p-button>
   <p-table
     [value]="data"
     [tableStyle]="{ 'min-width': '50rem' }"
@@ -7,31 +7,21 @@
     [rows]="pageSize"
     [totalRecords]="totalRecords"
     [lazy]="true"
-    (onLazyLoad)="getCategory($event)"
+    (onLazyLoad)="getBank($event)"
     [loading]="loading"
     [rowHover]="true"
   >
     <ng-template #header>
       <tr>
         <th>Nome</th>
-        <th>Cor</th>
-        <th>Gasto fixo</th>
+        <th>Saldo</th>
         <th pFrozenColumn></th>
       </tr>
     </ng-template>
-    <ng-template #body let-category>
+    <ng-template #body let-bank>
       <tr>
-        <td>{{ category.name }}</td>
-        <td>
-          <p-tag
-            [style]="{
-              background: category.color,
-              width: '20px',
-              height: '20px'
-            }"
-          ></p-tag>
-        </td>
-        <td>{{ category.fixedExpense ? "Sim" : "Não" }}</td>
+        <td>{{ bank.name }}</td>
+        <td>{{ bank.balance }}</td>
         <td
           pFrozenColumn
           style="display: flex; flex-direction: row-reverse; gap: 10px"
@@ -41,14 +31,14 @@
             severity="danger"
             [rounded]="true"
             [outlined]="true"
-            (click)="deleteCategory(category)"
+            (click)="deleteBank(bank)"
           />
           <p-button
             icon="pi pi-pencil"
             class="mr-2"
             [rounded]="true"
             [outlined]="true"
-            (click)="editCategory(category)"
+            (click)="editBank(bank)"
           />
         </td>
       </tr>
@@ -57,7 +47,7 @@
 </p-panel>
 
 <p-dialog
-  header="Categoria"
+  header="Banco"
   [(visible)]="formVisible"
   [modal]="true"
   [style]="{ width: '50vw' }"
@@ -84,13 +74,24 @@
       >
     </div>
     <div style="display: flex; flex-direction: column; gap: 2px">
-      <label for="color">Cor</label>
-      <p-colorpicker id="color" formControlName="color" />
-      <!-- <small id="name">Enter your username to reset your password.</small> -->
-    </div>
-    <div style="display: flex; flex-direction: column; gap: 6px">
-      <label for="fixedExpense">Gasto fixo</label>
-      <p-toggleswitch id="fixedExpense" formControlName="fixedExpense" />
+      <label for="balance">Saldo</label>
+      <p-inputnumber
+        id="balance"
+        mode="decimal"
+        [minFractionDigits]="2"
+        locale="pt-BR"
+        formControlName="balance"
+        class="{{ formGroup.get('balance')?.invalid ? 'ng-dirty' : '' }}"
+      />
+      <small
+        id="balance"
+        class="error"
+        *ngIf="
+          formGroup.get('balance')?.dirty &&
+          formGroup.get('balance')?.hasError('required')
+        "
+        >Este campo é obrigatório</small
+      >
     </div>
   </p-panel>
   <ng-template pTemplate="footer">
@@ -98,14 +99,14 @@
       pButton
       severity="success"
       label="Salvar"
-      (click)="saveCategory()"
+      (click)="saveBank()"
     ></button>
     <button
       pButton
       severity="danger"
       label="Excluir"
       [disabled]="formGroup.get('id')?.value === null"
-      (click)="deleteCategory(this.formGroup.getRawValue())"
+      (click)="deleteBank(this.formGroup.getRawValue())"
     ></button>
   </ng-template>
 </p-dialog>
