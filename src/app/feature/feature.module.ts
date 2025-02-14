@@ -11,9 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { BankComponent } from './bank/bank.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
-  declarations: [CategoryComponent],
+  declarations: [CategoryComponent, BankComponent],
   imports: [
     ComponentsModule,
     CommonModule,
@@ -25,6 +27,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
+    InputNumberModule,
     ColorPickerModule,
     ToggleSwitchModule,
   ],
