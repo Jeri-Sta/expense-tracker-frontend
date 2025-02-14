@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { CategoryComponent } from './feature/category/category.component';
 import { BankComponent } from './feature/bank/bank.component';
+import { CardComponent } from './feature/card/card.component';
 
 export const routes: Routes = [
   {
@@ -10,5 +11,9 @@ export const routes: Routes = [
   {
     path: 'bank',
     component: BankComponent,
+  },
+  {
+    path: 'card',
+    component: CardComponent,
   },
 ];

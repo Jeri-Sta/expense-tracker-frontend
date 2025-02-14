@@ -88,6 +88,12 @@ export class EntityService<T> {
       .pipe(this.defaultCatch());
   }
 
+  public listAll() {
+    return this.http
+      .get<T[]>(`${this.entityUrl}/listAll`)
+      .pipe(this.defaultCatch());
+  }
+
   public insert(entity: T) {
     return this.http
       .post<T>(`${this.entityUrl}`, entity)
