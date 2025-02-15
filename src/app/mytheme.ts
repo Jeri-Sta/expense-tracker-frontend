@@ -666,5 +666,9 @@ export const MyPreset = definePreset(Aura, {
       headerCellBackground: '{surface.800}',
       rowBackground: '{surface.600}',
     },
+    card: {
+      background: '{surface.700}',
+      borderColor: '{surface.700}',
+    },
   },
 });

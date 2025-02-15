@@ -16,9 +16,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CardComponent } from './card/card.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
-  declarations: [CategoryComponent, BankComponent, CardComponent],
+  declarations: [
+    CategoryComponent,
+    BankComponent,
+    CardComponent,
+    DashboardComponent,
+  ],
   imports: [
     ComponentsModule,
     CommonModule,
@@ -35,6 +42,7 @@ import { SelectModule } from 'primeng/select';
     ToggleSwitchModule,
     DatePickerModule,
     SelectModule,
+    CardModule,
   ],
 })
 export class FeatureModule {}
