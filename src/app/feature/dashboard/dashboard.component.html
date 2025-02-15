@@ -1,5 +1,19 @@
 <body class="container">
-  <div class="month-select"></div>
+  <div class="month-select">
+    <p-button
+      icon="pi pi-chevron-left"
+      [rounded]="true"
+      [outlined]="true"
+      (click)="previousMonth()"
+    />
+    <p>{{ formatDate(currentDate) }}</p>
+    <p-button
+      icon="pi pi-chevron-right"
+      [rounded]="true"
+      [outlined]="true"
+      (click)="nextMonth()"
+    />
+  </div>
   <div class="main-container">
     <div class="side-container-1">
       <div class="resume">
