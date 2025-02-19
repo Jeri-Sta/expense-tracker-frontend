@@ -18,6 +18,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardModule } from 'primeng/card';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CardModule } from 'primeng/card';
     DatePickerModule,
     SelectModule,
     CardModule,
+    SelectButtonModule,
   ],
 })
 export class FeatureModule {}
