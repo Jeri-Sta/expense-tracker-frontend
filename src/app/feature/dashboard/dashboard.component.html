@@ -17,12 +17,31 @@
   <div class="main-container">
     <div class="side-container-1">
       <div class="resume">
-        <p-card header="Saldo total"></p-card>
-        <p-card header="Renda mensal"></p-card>
-        <p-card header="Despesas mensais"></p-card>
+        <p-card header="Saldo total">
+          <p>{{ resumeData?.totalBalance }}</p>
+        </p-card>
+        <p-card header="Renda mensal">
+          <p>{{ resumeData?.monthlyIncome }}</p>
+        </p-card>
+        <p-card header="Despesas mensais">
+          <p>{{ resumeData?.monthlyExpenses }}</p>
+        </p-card>
       </div>
       <div class="table">
-        <p-panel class="resume-table" header="Resumo"></p-panel>
+        <p-panel class="resume-table" header="Resumo">
+          <ng-template #header>
+            <p-selectbutton
+              [options]="[
+                { name: 'Gastos', value: 'expenses' },
+                { name: 'Rendas', value: 'incomes' }
+              ]"
+              optionLabel="name"
+              optionValue="value"
+              [(ngModel)]="selectedOptionTab"
+              (onChange)="onChangeTab($event)"
+            />
+          </ng-template>
+        </p-panel>
       </div>
     </div>
     <div class="side-container-2">

@@ -6,10 +6,17 @@ import { CategoryService } from './core/entities/category/category.service';
 import { MessageService } from 'primeng/api';
 import { BankService } from './core/entities/bank/bank.service';
 import { CardService } from './core/entities/card/card.service';
+import { ResumeService } from './core/entities/resume/resume.service';
 @Component({
   selector: 'app-root',
   imports: [ComponentsModule, FeatureModule, ToastModule],
-  providers: [CategoryService, BankService, CardService, MessageService],
+  providers: [
+    CategoryService,
+    BankService,
+    CardService,
+    MessageService,
+    ResumeService,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
