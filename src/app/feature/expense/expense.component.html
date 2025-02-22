@@ -1,0 +1,192 @@
+<p-button (click)="newExpense()" label="Novo" icon="pi pi-plus"></p-button>
+<p-table
+  [value]="expensesData"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [loading]="loading"
+  [rowHover]="true"
+>
+  <ng-template #header>
+    <tr>
+      <th>Nome</th>
+      <th>Categoria</th>
+      <th>Cartão</th>
+      <th>Valor</th>
+      <th>Data</th>
+      <th>Parcelas</th>
+      <th pFrozenColumn></th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-expense>
+    <tr>
+      <td>{{ expense.name }}</td>
+      <td>
+        {{ expense.category ? expense.category.name : "Nenhuma" }}
+      </td>
+      <td>{{ expense.card ? expense.card.bank.name : "Nenhum" }}</td>
+      <td>{{ expense.value }}</td>
+      <td>{{ formatGridDate(expense.expenseDate) }}</td>
+      <td>{{ expense.installments }}</td>
+      <td
+        pFrozenColumn
+        style="display: flex; flex-direction: row-reverse; gap: 10px"
+      >
+        <p-button
+          icon="pi pi-trash"
+          severity="danger"
+          [rounded]="true"
+          [outlined]="true"
+          (click)="deleteExpense(expense)"
+        />
+        <p-button
+          icon="pi pi-pencil"
+          class="mr-2"
+          [rounded]="true"
+          [outlined]="true"
+          (click)="editExpense(expense)"
+        />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  header="Gasto"
+  [(visible)]="expenseFormVisible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+>
+  <p-panel class="form-panel" [formGroup]="formGroup">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="name">Nome</label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        formControlName="name"
+        class="{{
+          formGroup.get('name')?.dirty && formGroup.get('name')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="name"
+        class="error"
+        *ngIf="formGroup.get('name')?.dirty && formGroup.get('name')?.invalid"
+        >Este campo é obrigatório</small
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="category">Categoria</label>
+      <p-select
+        id="category"
+        formControlName="category"
+        [options]="categories"
+        placeholder="Selecione uma categoria"
+        optionLabel="name"
+        [filter]="true"
+        filterBy="name"
+        emptyMessage="Nenhuma categoria encontrada"
+        emptyFilterMessage="Nenhuma categoria encontrada"
+      ></p-select>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="card">Cartão</label>
+      <p-select
+        id="card"
+        formControlName="card"
+        [options]="cards"
+        placeholder="Selecione um cartão"
+        optionLabel="bank.name"
+        [filter]="true"
+        filterBy="bank.name"
+        emptyMessage="Nenhum cartão encontrado"
+        emptyFilterMessage="Nenhum cartão encontrado"
+      ></p-select>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="value">Valor</label>
+      <p-inputnumber
+        id="value"
+        mode="decimal"
+        [minFractionDigits]="2"
+        locale="pt-BR"
+        formControlName="value"
+        class="{{
+          formGroup.get('value')?.dirty && formGroup.get('value')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="limit"
+        class="error"
+        *ngIf="formGroup.get('value')?.dirty && formGroup.get('value')?.invalid"
+        >Este campo é obrigatório</small
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="expenseDate">Data</label>
+      <p-datepicker
+        id="expenseDate"
+        formControlName="expenseDate"
+        [showIcon]="true"
+        [iconDisplay]="'input'"
+        dateFormat="dd/mm/yy"
+        class="{{
+          formGroup.get('expenseDate')?.dirty &&
+          formGroup.get('expenseDate')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="expenseDate"
+        class="error"
+        *ngIf="
+          formGroup.get('expenseDate')?.dirty &&
+          formGroup.get('expenseDate')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="installments">Parcelas</label>
+      <p-inputnumber
+        id="installments"
+        locale="pt-BR"
+        formControlName="installments"
+        class="{{
+          formGroup.get('installments')?.dirty &&
+          formGroup.get('installments')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="limit"
+        class="error"
+        *ngIf="
+          formGroup.get('installments')?.dirty &&
+          formGroup.get('installments')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+  </p-panel>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      severity="success"
+      label="Salvar"
+      (click)="saveExpense()"
+    ></button>
+    <button
+      pButton
+      severity="danger"
+      label="Excluir"
+      [disabled]="formGroup.get('id')?.value === null"
+      (click)="deleteExpense(this.formGroup.getRawValue())"
+    ></button>
+  </ng-template>
+</p-dialog>

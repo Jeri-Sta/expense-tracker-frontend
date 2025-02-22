@@ -19,6 +19,8 @@ import { SelectModule } from 'primeng/select';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardModule } from 'primeng/card';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { IncomeComponent } from './income/income.component';
+import { ExpenseComponent } from './expense/expense.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     BankComponent,
     CardComponent,
     DashboardComponent,
+    IncomeComponent,
+    ExpenseComponent,
   ],
   imports: [
     ComponentsModule,
