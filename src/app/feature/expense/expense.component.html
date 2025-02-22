@@ -4,7 +4,6 @@
   [value]="expensesData"
   [tableStyle]="{ 'min-width': '50rem' }"
   [loading]="loading"
-  [rowHover]="true"
   [expandedRowKeys]="expandedRows"
 >
   <ng-template #header>
@@ -82,7 +81,7 @@
               </tr>
             </ng-template>
             <ng-template #body let-installment>
-              <tr>
+              <tr [ngStyle]="rowStyle(installment)">
                 <td>{{ installment.installmentNumber }}</td>
                 <td>{{ formatGridDate(installment.installmentDate) }}</td>
                 <td>{{ installment.value | currency : "R$ " }}</td>

@@ -28,10 +28,10 @@ export class DashboardComponent implements OnInit {
   expenseFormGroup: FormGroup = new FormGroup({});
   incomeFormGroup: FormGroup = new FormGroup({});
 
-  @ViewChild('exIcome')
-  incomeComponent!: IncomeComponent;
   @ViewChild('exExpense')
   expenseComponent!: ExpenseComponent;
+  @ViewChild('exIncome')
+  incomeComponent!: IncomeComponent;
 
   constructor(private resumeService: ResumeService) {}
 
@@ -54,22 +54,16 @@ export class DashboardComponent implements OnInit {
   nextMonth(): void {
     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
     this.getResume();
-    this.expenseComponent.getExpenses();
-    this.incomeComponent.getIncome();
+    if (this.selectedOptionTab == 'expenses')
+      this.expenseComponent.getExpenses();
+    if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
   }
 
   previousMonth(): void {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
     this.getResume();
-    this.expenseComponent.getExpenses();
-    this.incomeComponent.getIncome();
-  }
-
-  onChangeTab(): void {
-    if (this.selectedOptionTab === 'expenses') {
+    if (this.selectedOptionTab == 'expenses')
       this.expenseComponent.getExpenses();
-    } else {
-      this.incomeComponent.getIncome();
-    }
+    if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
   }
 }

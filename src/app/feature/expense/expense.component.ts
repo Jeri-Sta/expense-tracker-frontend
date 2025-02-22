@@ -8,6 +8,7 @@ import CategoryDto from '../../core/entities/category/category-dto';
 import CardDto from '../../core/entities/card/card-dto';
 import { CategoryService } from '../../core/entities/category/category.service';
 import { CardService } from '../../core/entities/card/card.service';
+import InstallmentDto from '../../core/entities/installment/income-dto';
 
 @Component({
   selector: 'ex-expense',
@@ -156,5 +157,21 @@ export class ExpenseComponent implements OnInit {
       this.cards = data;
       this.loading = false;
     });
+  }
+
+  rowStyle(installment: InstallmentDto) {
+    const currentDate = moment(this.currentDate).format('YYYY-MM');
+    const installmentDate = moment(installment.installmentDate).format(
+      'YYYY-MM'
+    );
+    if (currentDate === installmentDate) {
+      return {
+        color: 'var(--p-primary-950)',
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        background: 'var(--p-primary-200)',
+      };
+    }
+    return {};
   }
 }

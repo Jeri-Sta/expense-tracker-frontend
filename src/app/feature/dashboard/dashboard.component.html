@@ -39,7 +39,6 @@
               optionValue="value"
               [allowEmpty]="false"
               [(ngModel)]="selectedOptionTab"
-              (onChange)="onChangeTab()"
             />
           </ng-template>
           <ex-expense
@@ -49,7 +48,7 @@
             *ngIf="selectedOptionTab == 'expenses'"
           ></ex-expense>
           <ex-income
-            #exIcome
+            #exIncome
             [currentDate]="currentDate"
             (reloadResume)="getResume()"
             *ngIf="selectedOptionTab == 'incomes'"
