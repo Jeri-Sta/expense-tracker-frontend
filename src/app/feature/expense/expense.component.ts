@@ -22,6 +22,7 @@ export class ExpenseComponent implements OnInit {
   loading: boolean = false;
   cards: CardDto[] = [];
   categories: CategoryDto[] = [];
+  expandedRows = {};
 
   @Input() currentDate: Date = new Date();
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();
