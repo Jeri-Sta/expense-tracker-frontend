@@ -11,6 +11,8 @@ import { CategoryService } from '../../core/entities/category/category.service';
 import { CardService } from '../../core/entities/card/card.service';
 import CardDto from '../../core/entities/card/card-dto';
 import CategoryDto from '../../core/entities/category/category-dto';
+import IncomeDto from '../../core/entities/income/income-dto';
+import { IncomeService } from '../../core/entities/income/expense.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +25,13 @@ export class DashboardComponent implements OnInit {
   resumeData?: ResumeDto;
   selectedOptionTab: string = 'expenses';
   expensesData: ExpenseDto[] = [];
+  incomesData: IncomeDto[] = [];
   loading: boolean = false;
   expenseFormVisible: boolean = false;
+  incomeFormVisible: boolean = false;
 
   expenseFormGroup: FormGroup = new FormGroup({});
+  incomeFormGroup: FormGroup = new FormGroup({});
 
   cards: CardDto[] = [];
   categories: CategoryDto[] = [];
@@ -35,12 +40,14 @@ export class DashboardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private resumeService: ResumeService,
     private expenseService: ExpenseService,
+    private incomeService: IncomeService,
     private categoryService: CategoryService,
     private cardService: CardService
   ) {}
 
   ngOnInit(): void {
     this.getExpenseFormGroup();
+    this.getIncomeFormGroup();
     this.getCards();
     this.getCategories();
     this.getResume();
@@ -66,17 +73,22 @@ export class DashboardComponent implements OnInit {
   nextMonth(): void {
     this.currentDate.setMonth(this.currentDate.getMonth() + 1);
     this.getResume();
+    this.getExpenses();
+    this.getIncome();
   }
 
   previousMonth(): void {
     this.currentDate.setMonth(this.currentDate.getMonth() - 1);
     this.getResume();
+    this.getExpenses();
+    this.getIncome();
   }
 
   onChangeTab(): void {
     if (this.selectedOptionTab === 'expenses') {
       this.getExpenses();
     } else {
+      this.getIncome();
     }
   }
 
@@ -96,11 +108,27 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  getIncome(): void {
+    this.loading = true;
+    this.incomeService
+      .getIncome(this.currentDate)
+      .pipe(
+        catchError(() => {
+          this.loading = false;
+          return [];
+        })
+      )
+      .subscribe((incomes: IncomeDto[]) => {
+        this.incomesData = incomes;
+        this.loading = false;
+      });
+  }
+
   newRegister() {
     if (this.selectedOptionTab == 'expenses') {
       this.newExpense();
     } else {
-      // this.newIncome();
+      this.newIncome();
     }
   }
 
@@ -109,12 +137,25 @@ export class DashboardComponent implements OnInit {
     this.expenseFormVisible = true;
   }
 
+  newIncome() {
+    this.getIncomeFormGroup();
+    this.incomeFormVisible = true;
+  }
+
   editExpense(expense: ExpenseDto) {
     this.expenseFormVisible = true;
     this.expenseFormGroup.patchValue(expense);
     this.expenseFormGroup
       .get('expenseDate')
       ?.setValue(moment(expense.expenseDate).toDate());
+  }
+
+  editIncome(income: IncomeDto) {
+    this.incomeFormVisible = true;
+    this.incomeFormGroup.patchValue(income);
+    this.incomeFormGroup
+      .get('incomeDate')
+      ?.setValue(moment(income.incomeDate).toDate());
   }
 
   deleteExpense(expense: ExpenseDto): void {
@@ -133,6 +174,22 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  deleteIncome(income: IncomeDto): void {
+    this.loading = true;
+    this.incomeService
+      .delete(income.id)
+      .pipe(
+        catchError(() => {
+          this.loading = false;
+          return [];
+        })
+      )
+      .subscribe(() => {
+        this.getIncome();
+        this.getResume();
+      });
+  }
+
   getExpenseFormGroup(): void {
     this.expenseFormGroup = this.formBuilder.group({
       id: [undefined],
@@ -142,6 +199,15 @@ export class DashboardComponent implements OnInit {
       value: [0, Validators.required],
       expenseDate: [undefined, Validators.required],
       installments: [1, Validators.required],
+    });
+  }
+
+  getIncomeFormGroup(): void {
+    this.incomeFormGroup = this.formBuilder.group({
+      id: [undefined],
+      name: [undefined, Validators.required],
+      value: [0, Validators.required],
+      incomeDate: [undefined, Validators.required],
     });
   }
 
@@ -189,6 +255,37 @@ export class DashboardComponent implements OnInit {
     return this.expenseService.update(
       this.expenseFormGroup.get('id')?.value,
       this.expenseFormGroup.getRawValue()
+    );
+  }
+
+  saveIncome(): void {
+    this.validateFormGroup(this.incomeFormGroup);
+    if (this.incomeFormGroup.invalid) {
+      return;
+    }
+
+    let observable: Observable<any>;
+    if (this.incomeFormGroup.get('id')?.value) {
+      observable = this.incomeUpdateObservaable();
+    } else {
+      observable = this.incomeInsertObservaable();
+    }
+    observable.subscribe(() => {
+      this.getIncome();
+      this.getResume();
+      this.incomeFormVisible = false;
+      this.incomeFormGroup.reset();
+    });
+  }
+
+  incomeInsertObservaable() {
+    return this.incomeService.insert(this.incomeFormGroup.getRawValue());
+  }
+
+  incomeUpdateObservaable() {
+    return this.incomeService.update(
+      this.incomeFormGroup.get('id')?.value,
+      this.incomeFormGroup.getRawValue()
     );
   }
 

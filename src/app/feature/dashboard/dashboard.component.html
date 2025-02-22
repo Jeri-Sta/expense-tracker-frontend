@@ -37,6 +37,7 @@
               ]"
               optionLabel="name"
               optionValue="value"
+              [allowEmpty]="false"
               [(ngModel)]="selectedOptionTab"
               (onChange)="onChangeTab()"
             />
@@ -91,6 +92,49 @@
                     [rounded]="true"
                     [outlined]="true"
                     (click)="editExpense(expense)"
+                  />
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+          <p-table
+            *ngIf="selectedOptionTab == 'incomes'"
+            [value]="incomesData"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [loading]="loading"
+            [rowHover]="true"
+          >
+            <ng-template #header>
+              <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th pFrozenColumn></th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-income>
+              <tr>
+                <td>{{ income.name }}</td>
+                <td>{{ income.value }}</td>
+                <td>{{ formatGridDate(income.incomeDate) }}</td>
+                <td
+                  pFrozenColumn
+                  style="display: flex; flex-direction: row-reverse; gap: 10px"
+                >
+                  <p-button
+                    icon="pi pi-trash"
+                    severity="danger"
+                    [rounded]="true"
+                    [outlined]="true"
+                    (click)="deleteIncome(income)"
+                  />
+                  <p-button
+                    icon="pi pi-pencil"
+                    class="mr-2"
+                    [rounded]="true"
+                    [outlined]="true"
+                    (click)="editIncome(income)"
                   />
                 </td>
               </tr>
@@ -256,6 +300,105 @@
       label="Excluir"
       [disabled]="expenseFormGroup.get('id')?.value === null"
       (click)="deleteExpense(this.expenseFormGroup.getRawValue())"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="Renda"
+  [(visible)]="incomeFormVisible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+>
+  <p-panel class="form-panel" [formGroup]="incomeFormGroup">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="name">Nome</label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        formControlName="name"
+        class="{{
+          incomeFormGroup.get('name')?.dirty &&
+          incomeFormGroup.get('name')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="name"
+        class="error"
+        *ngIf="
+          incomeFormGroup.get('name')?.dirty &&
+          incomeFormGroup.get('name')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="value">Valor</label>
+      <p-inputnumber
+        id="value"
+        mode="decimal"
+        [minFractionDigits]="2"
+        locale="pt-BR"
+        formControlName="value"
+        class="{{
+          incomeFormGroup.get('value')?.dirty &&
+          incomeFormGroup.get('value')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="limit"
+        class="error"
+        *ngIf="
+          incomeFormGroup.get('value')?.dirty &&
+          incomeFormGroup.get('value')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <label for="incomeDate">Data</label>
+      <p-datepicker
+        id="incomeDate"
+        formControlName="incomeDate"
+        [showIcon]="true"
+        [iconDisplay]="'input'"
+        dateFormat="dd/mm/yy"
+        class="{{
+          incomeFormGroup.get('incomeDate')?.dirty &&
+          incomeFormGroup.get('incomeDate')?.invalid
+            ? 'ng-dirty'
+            : ''
+        }}"
+      />
+      <small
+        id="incomeDate"
+        class="error"
+        *ngIf="
+          incomeFormGroup.get('incomeDate')?.dirty &&
+          incomeFormGroup.get('incomeDate')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+  </p-panel>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      severity="success"
+      label="Salvar"
+      (click)="saveIncome()"
+    ></button>
+    <button
+      pButton
+      severity="danger"
+      label="Excluir"
+      [disabled]="incomeFormGroup.get('id')?.value === null"
+      (click)="deleteIncome(this.incomeFormGroup.getRawValue())"
     ></button>
   </ng-template>
 </p-dialog>
