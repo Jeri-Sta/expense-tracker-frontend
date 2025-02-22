@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { BankService } from './core/entities/bank/bank.service';
 import { CardService } from './core/entities/card/card.service';
 import { ResumeService } from './core/entities/resume/resume.service';
+import { ExpenseService } from './core/entities/expense/expense.service';
 @Component({
   selector: 'app-root',
   imports: [ComponentsModule, FeatureModule, ToastModule],
@@ -16,6 +17,7 @@ import { ResumeService } from './core/entities/resume/resume.service';
     CardService,
     MessageService,
     ResumeService,
+    ExpenseService,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
