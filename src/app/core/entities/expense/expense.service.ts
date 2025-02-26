@@ -14,10 +14,13 @@ export class ExpenseService extends EntityService<ExpenseDto> {
     super(http, messageService, 'http://localhost:8080/expense');
   }
 
-  public getExpenses(date: Date) {
+  public getExpenses(dates: Date[]) {
+    const startDate = moment(dates[0]).format('YYYY-MM-DD');
+    const endDate = moment(dates[1]).format('YYYY-MM-DD');
     return this.http.get<ExpenseDto[]>('http://localhost:8080/expense', {
       params: {
-        referenceDate: moment(date).format('YYYY-MM-DD'),
+        startDate: startDate,
+        endDate: endDate,
       },
     });
   }

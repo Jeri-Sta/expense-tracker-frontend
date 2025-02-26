@@ -14,10 +14,12 @@ export class ResumeService extends EntityService<ResumeDto> {
     super(http, messageService, 'http://localhost:8080/resume');
   }
 
-  public getResume(date: Date) {
-    const currentDate = moment(date).format('YYYY-MM-DD');
+  public getResume(dates: Date[]) {
+    const startDate = moment(dates[0]).format('YYYY-MM-DD');
+    const endDate = moment(dates[1]).format('YYYY-MM-DD');
     return this.http.post<ResumeDto>('http://localhost:8080/resume', {
-      currentDate,
+      startDate,
+      endDate,
     });
   }
 }

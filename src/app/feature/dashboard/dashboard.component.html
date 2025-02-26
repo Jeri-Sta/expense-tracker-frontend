@@ -6,7 +6,15 @@
       [outlined]="true"
       (click)="previousMonth()"
     />
-    <p>{{ formatDate(currentDate) }}</p>
+    <p-datePicker
+      #datePicker
+      [(ngModel)]="periods"
+      selectionMode="range"
+      [readonlyInput]="true"
+      [showIcon]="true"
+      dateFormat="dd/mm/yy"
+      (onClose)="onCloseDatePicker()"
+    ></p-datePicker>
     <p-button
       icon="pi pi-chevron-right"
       [rounded]="true"
@@ -43,13 +51,13 @@
           </ng-template>
           <ex-expense
             #exExpense
-            [currentDate]="currentDate"
+            [period]="periods"
             (reloadResume)="getResume()"
             *ngIf="selectedOptionTab == 'expenses'"
           ></ex-expense>
           <ex-income
             #exIncome
-            [currentDate]="currentDate"
+            [period]="periods"
             (reloadResume)="getResume()"
             *ngIf="selectedOptionTab == 'incomes'"
           ></ex-income>

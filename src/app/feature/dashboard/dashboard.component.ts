@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import IncomeDto from '../../core/entities/income/income-dto';
 import { IncomeComponent } from '../income/income.component';
 import { ExpenseComponent } from '../expense/expense.component';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import { ExpenseComponent } from '../expense/expense.component';
   standalone: false,
 })
 export class DashboardComponent implements OnInit {
-  currentDate: Date = new Date();
+  periods: Date[] = [];
   resumeData?: ResumeDto;
   selectedOptionTab: string = 'expenses';
   expensesData: ExpenseDto[] = [];
@@ -32,16 +33,29 @@ export class DashboardComponent implements OnInit {
   expenseComponent!: ExpenseComponent;
   @ViewChild('exIncome')
   incomeComponent!: IncomeComponent;
+  @ViewChild('datePicker')
+  datePicker!: DatePicker;
 
   constructor(private resumeService: ResumeService) {}
 
   ngOnInit(): void {
     this.getResume();
+    this.setDefaultDate();
+  }
+
+  setDefaultDate(): void {
+    const start = new Date();
+    const end = new Date();
+    start.setDate(7);
+    end.setDate(7);
+    end.setMonth(start.getMonth() + 1);
+
+    this.periods = [start, end];
   }
 
   getResume() {
     this.resumeService
-      .getResume(this.currentDate)
+      .getResume(this.periods)
       .subscribe((resume: ResumeDto) => {
         this.resumeData = resume;
       });
@@ -52,7 +66,11 @@ export class DashboardComponent implements OnInit {
   }
 
   nextMonth(): void {
-    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+    this.periods.forEach((date) => {
+      date.setMonth(date.getMonth() + 1);
+    });
+    this.datePicker.updateInputfield();
+
     this.getResume();
     if (this.selectedOptionTab == 'expenses')
       this.expenseComponent.getExpenses();
@@ -60,10 +78,23 @@ export class DashboardComponent implements OnInit {
   }
 
   previousMonth(): void {
-    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+    this.periods.forEach((date) => {
+      date.setMonth(date.getMonth() - 1);
+    });
+    console.log(this.periods);
+    this.datePicker.updateInputfield();
     this.getResume();
     if (this.selectedOptionTab == 'expenses')
       this.expenseComponent.getExpenses();
     if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
+  }
+
+  onCloseDatePicker() {
+    if (this.periods.length > 0) {
+      this.getResume();
+      if (this.selectedOptionTab == 'expenses')
+        this.expenseComponent.getExpenses();
+      if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
+    }
   }
 }

@@ -17,7 +17,7 @@ export class IncomeComponent implements OnInit {
   incomesData: IncomeDto[] = [];
   loading: boolean = false;
 
-  @Input() currentDate: Date = new Date();
+  @Input() period: Date[] = [];
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -115,7 +115,7 @@ export class IncomeComponent implements OnInit {
   getIncome(): void {
     this.loading = true;
     this.incomeService
-      .getIncome(this.currentDate)
+      .getIncome(this.period)
       .pipe(
         catchError(() => {
           this.loading = false;

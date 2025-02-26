@@ -25,7 +25,7 @@ export class ExpenseComponent implements OnInit {
   categories: CategoryDto[] = [];
   expandedRows = {};
 
-  @Input() currentDate: Date = new Date();
+  @Input() period: Date[] = [];
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -49,7 +49,7 @@ export class ExpenseComponent implements OnInit {
   getExpenses(): void {
     this.loading = true;
     this.expenseService
-      .getExpenses(this.currentDate)
+      .getExpenses(this.period)
       .pipe(
         catchError(() => {
           this.loading = false;
@@ -160,11 +160,10 @@ export class ExpenseComponent implements OnInit {
   }
 
   rowStyle(installment: InstallmentDto) {
-    const currentDate = moment(this.currentDate).format('YYYY-MM');
-    const installmentDate = moment(installment.installmentDate).format(
-      'YYYY-MM'
-    );
-    if (currentDate === installmentDate) {
+    const startDate = this.period[0];
+    const endDate = this.period[1];
+    const installmentDate = moment(installment.installmentDate).toDate();
+    if (installmentDate >= startDate && installmentDate <= endDate) {
       return {
         color: 'var(--p-primary-950)',
         fontWeight: 'bold',
