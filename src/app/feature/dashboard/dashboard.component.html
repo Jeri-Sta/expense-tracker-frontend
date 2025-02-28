@@ -37,30 +37,28 @@
       </div>
       <div class="table">
         <p-panel class="resume-table" header="Resumo">
-          <ng-template #header>
-            <p-selectbutton
-              [options]="[
-                { name: 'Gastos', value: 'expenses' },
-                { name: 'Rendas', value: 'incomes' }
-              ]"
-              optionLabel="name"
-              optionValue="value"
-              [allowEmpty]="false"
-              [(ngModel)]="selectedOptionTab"
-            />
-          </ng-template>
-          <ex-expense
-            #exExpense
-            [period]="periods"
-            (reloadResume)="getResume()"
-            *ngIf="selectedOptionTab == 'expenses'"
-          ></ex-expense>
-          <ex-income
-            #exIncome
-            [period]="periods"
-            (reloadResume)="getResume()"
-            *ngIf="selectedOptionTab == 'incomes'"
-          ></ex-income>
+          <p-tabs [value]="0">
+            <p-tablist>
+              <p-tab [value]="0">Gastos</p-tab>
+              <p-tab [value]="1">Renda</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+              <p-tabpanel [value]="0">
+                <ex-expense
+                  #exExpense
+                  [period]="periods"
+                  (reloadResume)="getResume()"
+                ></ex-expense>
+              </p-tabpanel>
+              <p-tabpanel [value]="1">
+                <ex-income
+                  #exIncome
+                  [period]="periods"
+                  (reloadResume)="getResume()"
+                ></ex-income>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
         </p-panel>
       </div>
     </div>

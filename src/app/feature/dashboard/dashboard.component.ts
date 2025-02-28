@@ -72,21 +72,19 @@ export class DashboardComponent implements OnInit {
     this.datePicker.updateInputfield();
 
     this.getResume();
-    if (this.selectedOptionTab == 'expenses')
-      this.expenseComponent.getExpenses();
-    if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
+    this.expenseComponent.getExpenses();
+    this.incomeComponent.getIncome();
   }
 
   previousMonth(): void {
     this.periods.forEach((date) => {
       date.setMonth(date.getMonth() - 1);
     });
-    console.log(this.periods);
     this.datePicker.updateInputfield();
+
     this.getResume();
-    if (this.selectedOptionTab == 'expenses')
-      this.expenseComponent.getExpenses();
-    if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
+    this.expenseComponent.getExpenses();
+    this.incomeComponent.getIncome();
   }
 
   onCloseDatePicker() {

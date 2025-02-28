@@ -109,3 +109,6 @@
   min-width: 242px;
   max-width: 242px;
 }
+::ng-deep .p-tabpanels {
+  padding: 0;
+}
