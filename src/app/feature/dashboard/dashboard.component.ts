@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   setDefaultDate(): void {
     const start = new Date();
     const end = new Date();
-    start.setDate(7);
+    start.setDate(8);
     end.setDate(7);
     end.setMonth(start.getMonth() + 1);
 
