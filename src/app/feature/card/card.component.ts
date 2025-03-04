@@ -65,9 +65,6 @@ export class CardComponent implements OnInit {
     }
     this.cardService.list(paramList).subscribe((data: any) => {
       this.data = data.content;
-      this.data.forEach((element: any) => {
-        element.closingDate = moment(element.closingDate).format('DD/MM/YYYY');
-      });
       this.totalRecords = data.totalElements; // Define o total de registros para paginação
       this.loading = false;
     });
@@ -78,7 +75,7 @@ export class CardComponent implements OnInit {
       id: [undefined],
       bank: [undefined, Validators.required],
       limit: [undefined, Validators.required],
-      closingDate: [undefined, Validators.required],
+      closingDay: [undefined, Validators.required],
     });
   }
 

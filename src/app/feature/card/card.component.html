@@ -15,7 +15,7 @@
       <tr>
         <th>Banco</th>
         <th>Limite</th>
-        <th>Data de fechamento</th>
+        <th>Dia de fechamento</th>
         <th pFrozenColumn></th>
       </tr>
     </ng-template>
@@ -23,7 +23,7 @@
       <tr>
         <td>{{ card.bank.name }}</td>
         <td>{{ card.limit }}</td>
-        <td>{{ card.closingDate }}</td>
+        <td>{{ card.closingDay }}</td>
         <td
           pFrozenColumn
           style="display: flex; flex-direction: row-reverse; gap: 10px"
@@ -102,26 +102,24 @@
       >
     </div>
     <div style="display: flex; flex-direction: column; gap: 2px">
-      <label for="closingDate">Data de fechamento</label>
-      <p-datepicker
-        id="closingDate"
-        formControlName="closingDate"
-        [showIcon]="true"
-        [iconDisplay]="'input'"
-        dateFormat="dd/mm/yy"
+      <label for="closingDay">Dia de fechamento</label>
+      <p-inputnumber
+        id="closingDay"
+        locale="pt-BR"
+        formControlName="closingDay"
         class="{{
-          formGroup.get('closingDate')?.dirty &&
-          formGroup.get('closingDate')?.invalid
+          formGroup.get('closingDay')?.dirty &&
+          formGroup.get('closingDay')?.invalid
             ? 'ng-dirty'
             : ''
         }}"
       />
       <small
-        id="closingDate"
+        id="closingDay"
         class="error"
         *ngIf="
-          formGroup.get('closingDate')?.dirty &&
-          formGroup.get('closingDate')?.invalid
+          formGroup.get('closingDay')?.dirty &&
+          formGroup.get('closingDay')?.invalid
         "
         >Este campo é obrigatório</small
       >

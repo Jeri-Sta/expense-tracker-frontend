@@ -14,13 +14,10 @@ export class IncomeService extends EntityService<IncomeDto> {
     super(http, messageService, 'http://localhost:8080/income');
   }
 
-  public getIncome(dates: Date[]) {
-    const startDate = moment(dates[0]).format('YYYY-MM-DD');
-    const endDate = moment(dates[1]).format('YYYY-MM-DD');
+  public getIncome(date: Date) {
     return this.http.get<IncomeDto[]>('http://localhost:8080/income', {
       params: {
-        startDate: startDate,
-        endDate: endDate,
+        referenceDate: moment(date).format('YYYY-MM-DD'),
       },
     });
   }

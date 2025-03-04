@@ -6,15 +6,7 @@
       [outlined]="true"
       (click)="previousMonth()"
     />
-    <p-datePicker
-      #datePicker
-      [(ngModel)]="periods"
-      selectionMode="range"
-      [readonlyInput]="true"
-      [showIcon]="true"
-      dateFormat="dd/mm/yy"
-      (onClose)="onCloseDatePicker()"
-    ></p-datePicker>
+    <p>{{ formatDate(currentDate) }}</p>
     <p-button
       icon="pi pi-chevron-right"
       [rounded]="true"
@@ -25,14 +17,14 @@
   <div class="main-container">
     <div class="side-container-1">
       <div class="resume">
-        <p-card header="Saldo total">
-          <p>{{ resumeData?.totalBalance }}</p>
-        </p-card>
         <p-card header="Renda mensal">
           <p>{{ resumeData?.monthlyIncome }}</p>
         </p-card>
         <p-card header="Despesas mensais">
           <p>{{ resumeData?.monthlyExpenses }}</p>
+        </p-card>
+        <p-card header="Saldo total">
+          <p>{{ resumeData?.totalBalance }}</p>
         </p-card>
       </div>
       <div class="table">
@@ -46,14 +38,15 @@
               <p-tabpanel [value]="0">
                 <ex-expense
                   #exExpense
-                  [period]="periods"
+                  [currentDate]="currentDate"
                   (reloadResume)="getResume()"
+                  (updateChart)="setChart($event)"
                 ></ex-expense>
               </p-tabpanel>
               <p-tabpanel [value]="1">
                 <ex-income
                   #exIncome
-                  [period]="periods"
+                  [currentDate]="currentDate"
                   (reloadResume)="getResume()"
                 ></ex-income>
               </p-tabpanel>
@@ -67,7 +60,13 @@
         <p-panel header="Cartões"></p-panel>
       </div>
       <div class="chart">
-        <p-panel header="Gráfico"></p-panel>
+        <p-panel header="Gráfico">
+          <p-chart
+            type="pie"
+            [data]="chartData"
+            [options]="chartOptions"
+          ></p-chart>
+        </p-panel>
       </div>
     </div>
   </div>

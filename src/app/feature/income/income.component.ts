@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import IncomeDto from '../../core/entities/income/income-dto';
 import moment from 'moment';
-import { IncomeService } from '../../core/entities/income/expense.service';
+import { IncomeService } from '../../core/entities/income/income.service';
 import { catchError, Observable } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class IncomeComponent implements OnInit {
   incomesData: IncomeDto[] = [];
   loading: boolean = false;
 
-  @Input() period: Date[] = [];
+  @Input() currentDate: Date = new Date();
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -115,7 +115,7 @@ export class IncomeComponent implements OnInit {
   getIncome(): void {
     this.loading = true;
     this.incomeService
-      .getIncome(this.period)
+      .getIncome(this.currentDate)
       .pipe(
         catchError(() => {
           this.loading = false;

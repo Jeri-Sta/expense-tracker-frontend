@@ -22,6 +22,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { IncomeComponent } from './income/income.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { TabsModule } from 'primeng/tabs';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TabsModule } from 'primeng/tabs';
     CardModule,
     SelectButtonModule,
     TabsModule,
+    ChartModule,
   ],
 })
 export class FeatureModule {}

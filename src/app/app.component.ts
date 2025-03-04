@@ -8,7 +8,7 @@ import { BankService } from './core/entities/bank/bank.service';
 import { CardService } from './core/entities/card/card.service';
 import { ResumeService } from './core/entities/resume/resume.service';
 import { ExpenseService } from './core/entities/expense/expense.service';
-import { IncomeService } from './core/entities/income/expense.service';
+import { IncomeService } from './core/entities/income/income.service';
 @Component({
   selector: 'app-root',
   imports: [ComponentsModule, FeatureModule, ToastModule],

@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import { ResumeService } from '../../core/entities/resume/resume.service';
@@ -17,24 +23,16 @@ import { DatePicker } from 'primeng/datepicker';
   standalone: false,
 })
 export class DashboardComponent implements OnInit {
-  periods: Date[] = [];
+  currentDate: Date = new Date();
   resumeData?: ResumeDto;
-  selectedOptionTab: string = 'expenses';
-  expensesData: ExpenseDto[] = [];
-  incomesData: IncomeDto[] = [];
-  loading: boolean = false;
-  expenseFormVisible: boolean = false;
-  incomeFormVisible: boolean = false;
 
-  expenseFormGroup: FormGroup = new FormGroup({});
-  incomeFormGroup: FormGroup = new FormGroup({});
+  chartData: any;
+  chartOptions: any;
 
   @ViewChild('exExpense')
   expenseComponent!: ExpenseComponent;
   @ViewChild('exIncome')
   incomeComponent!: IncomeComponent;
-  @ViewChild('datePicker')
-  datePicker!: DatePicker;
 
   constructor(private resumeService: ResumeService) {}
 
@@ -49,13 +47,11 @@ export class DashboardComponent implements OnInit {
     start.setDate(8);
     end.setDate(7);
     end.setMonth(start.getMonth() + 1);
-
-    this.periods = [start, end];
   }
 
   getResume() {
     this.resumeService
-      .getResume(this.periods)
+      .getResume(this.currentDate)
       .subscribe((resume: ResumeDto) => {
         this.resumeData = resume;
       });
@@ -66,10 +62,7 @@ export class DashboardComponent implements OnInit {
   }
 
   nextMonth(): void {
-    this.periods.forEach((date) => {
-      date.setMonth(date.getMonth() + 1);
-    });
-    this.datePicker.updateInputfield();
+    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
 
     this.getResume();
     this.expenseComponent.getExpenses();
@@ -77,22 +70,52 @@ export class DashboardComponent implements OnInit {
   }
 
   previousMonth(): void {
-    this.periods.forEach((date) => {
-      date.setMonth(date.getMonth() - 1);
-    });
-    this.datePicker.updateInputfield();
+    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
 
     this.getResume();
     this.expenseComponent.getExpenses();
     this.incomeComponent.getIncome();
   }
 
-  onCloseDatePicker() {
-    if (this.periods.length > 0) {
-      this.getResume();
-      if (this.selectedOptionTab == 'expenses')
-        this.expenseComponent.getExpenses();
-      if (this.selectedOptionTab == 'incomes') this.incomeComponent.getIncome();
-    }
+  setChart(data: ExpenseDto[]) {
+    const groupedExpenses = data.reduce((acc, expense) => {
+      const categoryName = expense.category?.name || 'Uncategorized';
+      const categoryColor = expense.category?.color;
+
+      const valueToUse =
+        expense.installmentsRegisters.length > 0
+          ? expense.installmentsRegisters[0].value
+          : expense.value;
+
+      if (!acc[categoryName]) {
+        acc[categoryName] = {
+          categoryName: categoryName,
+          totalValue: valueToUse,
+          color: categoryColor,
+        };
+      } else {
+        acc[categoryName].totalValue += valueToUse;
+      }
+
+      return acc;
+    }, {} as Record<string, CategoryAggregatedDto>);
+
+    const aggregatedData = Object.values(groupedExpenses);
+
+    this.chartData = {
+      labels: aggregatedData.map((exp) => exp.categoryName),
+      datasets: [
+        {
+          data: aggregatedData.map((exp) => exp.totalValue),
+          backgroundColor: aggregatedData.map((exp) => exp.color),
+        },
+      ],
+    };
   }
+}
+
+export default interface CategoryAggregatedDto {
+  categoryName: string;
+  totalValue: number;
+  color?: string;
 }
