@@ -60,11 +60,12 @@
         <p-panel header="Cartões"></p-panel>
       </div>
       <div class="chart">
-        <p-panel header="Gráfico">
+        <p-panel class="graphic" header="Gráfico">
           <p-chart
             type="pie"
             [data]="chartData"
             [options]="chartOptions"
+            [style]="{ width: '17rem', height: '17rem' }"
           ></p-chart>
         </p-panel>
       </div>
