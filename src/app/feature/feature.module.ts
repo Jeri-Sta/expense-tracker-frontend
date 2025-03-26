@@ -23,6 +23,7 @@ import { IncomeComponent } from './income/income.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { TabsModule } from 'primeng/tabs';
 import { ChartModule } from 'primeng/chart';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ChartModule } from 'primeng/chart';
     DashboardComponent,
     IncomeComponent,
     ExpenseComponent,
+    LoginComponent,
   ],
   imports: [
     ComponentsModule,

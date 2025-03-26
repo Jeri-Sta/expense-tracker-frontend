@@ -312,7 +312,7 @@ export const MyPreset = definePreset(Aura, {
     anchorGutter: '2px',
     primary: {
       50: '#ffffff',
-      100: '#ffffff',
+      100: '#B9B7B7',
       200: '#ffffff',
       300: '#ffffff',
       400: '#ffffff',
@@ -321,7 +321,7 @@ export const MyPreset = definePreset(Aura, {
       700: '#b3b3b3',
       800: '#8c8c8c',
       900: '#666666',
-      950: '#404040',
+      950: '#181717',
     },
     formField: {
       paddingX: '0.75rem',
