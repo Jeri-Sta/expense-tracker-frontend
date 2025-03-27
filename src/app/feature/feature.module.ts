@@ -24,6 +24,10 @@ import { ExpenseComponent } from './expense/expense.component';
 import { TabsModule } from 'primeng/tabs';
 import { ChartModule } from 'primeng/chart';
 import { LoginComponent } from './login/login.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,10 @@ import { LoginComponent } from './login/login.component';
     SelectButtonModule,
     TabsModule,
     ChartModule,
+    CheckboxModule,
+    IconFieldModule,
+    InputIconModule,
+    PasswordModule,
   ],
 })
 export class FeatureModule {}

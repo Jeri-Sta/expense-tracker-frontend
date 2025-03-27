@@ -1,0 +1,227 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+
+  .main-container {
+    width: 100%;
+    height: 100%;
+    flex: 10;
+
+    .welcome-container {
+      text-align: left;
+      color: var(--p-primary-50);
+      padding-left: 70px;
+      padding-top: 70px;
+      font-family: "Jetbrains Mono", monospace;
+      position: relative;
+
+      h1 {
+        font-size: 32px;
+        font-weight: 400;
+        width: 310px;
+        z-index: 2;
+        position: relative;
+      }
+      .highlight {
+        background-color: var(--p-primary-700);
+        border-radius: 15px;
+        height: 37px;
+        width: 361px;
+        position: absolute;
+        z-index: 1;
+        left: 127px;
+        top: 95px;
+        box-shadow: 0px 4px 4px 0px rgba(2, 0, 0, 0.836);
+      }
+
+      h2 {
+        font-size: 32px;
+        font-weight: 400;
+        font-family: "Julius Sans One";
+        margin-top: 10px;
+        color: var(--p-primary-100);
+      }
+
+      p {
+        font-size: 15px;
+        font-weight: 400;
+        font-family: "JetBrains Mono";
+        margin-top: 5px;
+        color: var(--p-primary-150);
+      }
+
+      .bars {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+
+        .first-bar {
+          margin-top: 20px;
+          width: 100%;
+          height: 7px;
+          background: var(--p-primary-750);
+          box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .second-bar {
+          margin-top: 20px;
+          width: 10%;
+          height: 3px;
+          background: var(--p-primary-650);
+          box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          position: relative;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  .form-container {
+    width: 100%;
+    height: 100%;
+    flex: 5;
+    padding: 50px 80px;
+
+    .form {
+      width: 100%;
+      height: 100%;
+      background-color: var(--p-primary-800);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px 30px;
+
+      .header {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        h1 {
+          font-family: "Alata";
+          font-weight: 400;
+          font-size: 25px;
+          color: var(--p-primary-700);
+          margin-bottom: 5px;
+        }
+
+        .line {
+          width: 60%;
+          height: 1px;
+          background-color: var(--p-primary-750);
+          align-self: flex-end;
+        }
+      }
+
+      .fields {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 60px;
+
+        ::ng-deep .p-inputtext {
+          width: 100%;
+          background-color: var(--p-primary-150);
+          box-shadow: 0px 4px 4px 0px rgba(30, 30, 30, 0.61);
+          border-radius: 15px;
+          color: var(--p-primary-600);
+        }
+
+        ::ng-deep .p-password {
+          width: 100%;
+        }
+
+        ::ng-deep .p-iconwrapper {
+          background-color: var(--p-primary-150);
+        }
+
+        ::ng-deep .p-checkbox-checked {
+          background-color: var(--p-primary-150);
+          border-radius: var(--p-checkbox-border-radius);
+        }
+
+        ::ng-deep .p-checkbox-input:hover {
+          border: none;
+        }
+
+        ::ng-deep .p-checkbox-box {
+          background-color: var(--p-primary-150);
+        }
+
+        .checkbox {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+
+          label {
+            font-family: "Alata";
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--p-primary-200);
+          }
+        }
+
+        ::ng-deep .p-button {
+          width: 100%;
+          background-color: var(--p-primary-600);
+          border: none;
+          border-radius: 15px;
+          box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+          ::ng-deep .p-button-label {
+            color: var(--p-primary-100);
+            font: "Alata";
+            font-weight: 400;
+            font-size: 15px;
+          }
+        }
+
+        a {
+          margin-top: 10px;
+          font-family: "Alata";
+          font-weight: 400;
+          font-size: 15px;
+          color: var(--p-primary-100);
+          text-align: center;
+        }
+      }
+
+      .footer {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          margin: 0;
+          font-family: "Alata";
+          font-weight: 400;
+          font-size: 15px;
+          color: var(--p-primary-100);
+        }
+
+        a {
+          font-family: "Alata";
+          font-weight: 500;
+          font-size: 15px;
+          color: var(--p-primary-50);
+        }
+      }
+    }
+  }
+}
