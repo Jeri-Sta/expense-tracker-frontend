@@ -23,11 +23,15 @@ import { IncomeComponent } from './income/income.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { TabsModule } from 'primeng/tabs';
 import { ChartModule } from 'primeng/chart';
-import { LoginComponent } from './login/login.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PasswordModule } from 'primeng/password';
+import { AuthenticationComponent } from './login/authentication.component';
+import { RouterModule } from '@angular/router';
+import { LoginFormComponent } from './login/login-form/login-form.component';
+import { PasswordRecoveryFormComponent } from './login/password-recovery-form/password-recovery-form.component';
+import { RegisterFormComponent } from './login/register-form/register-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,10 @@ import { PasswordModule } from 'primeng/password';
     DashboardComponent,
     IncomeComponent,
     ExpenseComponent,
-    LoginComponent,
+    AuthenticationComponent,
+    LoginFormComponent,
+    PasswordRecoveryFormComponent,
+    RegisterFormComponent,
   ],
   imports: [
     ComponentsModule,
@@ -63,6 +70,7 @@ import { PasswordModule } from 'primeng/password';
     IconFieldModule,
     InputIconModule,
     PasswordModule,
+    RouterModule,
   ],
 })
 export class FeatureModule {}

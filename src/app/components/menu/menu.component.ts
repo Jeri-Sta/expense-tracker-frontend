@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
   menuItems = [
-    { label: 'Dashboard', link: '/' },
+    { label: 'Dashboard', link: '/dashboard' },
     {
       label: 'Cadastros',
       submenu: [
@@ -19,4 +19,11 @@ export class MenuComponent {
       ],
     },
   ];
+
+  constructor(private readonly router: Router) {}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/authentication']);
+  }
 }

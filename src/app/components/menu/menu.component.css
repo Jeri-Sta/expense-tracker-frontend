@@ -29,6 +29,10 @@
   align-content: center;
 }
 
+.logout {
+  cursor: pointer;
+}
+
 .menu a:hover {
   background: #555;
 }

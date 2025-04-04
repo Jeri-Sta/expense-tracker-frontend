@@ -1,0 +1,66 @@
+<div class="form">
+  <div class="header">
+    <h1>Login to your account.</h1>
+    <div class="line"></div>
+  </div>
+  <div class="fields" [formGroup]="formGroup">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-user" />
+        <input
+          formControlName="email"
+          pInputText
+          type="text"
+          placeholder="E-mail"
+        />
+      </p-iconfield>
+      <small
+        id="email"
+        class="error"
+        *ngIf="formGroup.get('email')?.dirty && formGroup.get('email')?.invalid"
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-lock" />
+        <input
+          formControlName="password"
+          pInputText
+          type="password"
+          placeholder="Password"
+        />
+      </p-iconfield>
+      <small
+        id="password"
+        class="error"
+        *ngIf="
+          formGroup.get('password')?.dirty && formGroup.get('password')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div class="checkbox">
+      <p-checkbox
+        formControlName="remember"
+        [binary]="true"
+        inputId="remember"
+      />
+      <label for="remeber" class="ml-2">Remeber me</label>
+    </div>
+    <button
+      pButton
+      label="Login"
+      class="p-button-raised p-button-rounded p-button-text"
+      (click)="login()"
+      [loading]="loading"
+    ></button>
+    <a (click)="go('recovery')">Forgot your password?</a>
+  </div>
+  <div class="footer">
+    <p>New here?</p>
+    <a (click)="go('register')">Sign Up</a>
+  </div>
+</div>

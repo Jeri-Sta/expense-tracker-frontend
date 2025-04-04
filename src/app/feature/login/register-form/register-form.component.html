@@ -1,0 +1,137 @@
+<div class="form">
+  <div class="header">
+    <h1>Create account.</h1>
+    <div class="line"></div>
+  </div>
+  <div class="fields" [formGroup]="formGroup">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-user" />
+        <input
+          id="name"
+          pInputText
+          type="text"
+          formControlName="name"
+          placeholder="Name"
+        />
+      </p-iconfield>
+      <small
+        id="name"
+        class="error"
+        *ngIf="formGroup.get('name')?.dirty && formGroup.get('name')?.invalid"
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-at" />
+        <input
+          id="email"
+          pInputText
+          type="text"
+          formControlName="email"
+          placeholder="E-mail"
+        />
+      </p-iconfield>
+      <small
+        id="email"
+        class="error"
+        *ngIf="formGroup.get('email')?.dirty && formGroup.get('email')?.invalid"
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-lock" />
+        <input
+          id="password"
+          pInputText
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+      </p-iconfield>
+      <small
+        id="password"
+        class="error"
+        *ngIf="
+          formGroup.get('password')?.dirty && formGroup.get('password')?.invalid
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div class="toggle">
+      <p-selectbutton
+        [options]="stateOptions"
+        formControlName="toggleState"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+      />
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <input
+        *ngIf="formGroup.get('toggleState')?.value == 'invited'"
+        pInputText
+        type="text"
+        placeholder="Invite code"
+        formControlName="inviteCode"
+      />
+      <small
+        id="inviteCode"
+        class="error"
+        *ngIf="
+          formGroup.get('inviteCode')?.dirty &&
+          formGroup.get('inviteCode')?.invalid &&
+          formGroup.get('toggleState')?.value == 'invited'
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <p-inputnumber
+        *ngIf="formGroup.get('toggleState')?.value == 'normal'"
+        placeholder="Payment day"
+        [showButtons]="true"
+        inputId="minmax-buttons"
+        [min]="1"
+        [max]="31"
+        [maxFractionDigits]="0"
+        format="false"
+        formControlName="paymentDay"
+      />
+      <small
+        id="paymentDay"
+        class="error"
+        *ngIf="
+          formGroup.get('paymentDay')?.dirty &&
+          formGroup.get('paymentDay')?.invalid &&
+          formGroup.get('toggleState')?.value == 'normal'
+        "
+        >Este campo é obrigatório</small
+      >
+    </div>
+
+    <div class="checkbox">
+      <p-checkbox formControlName="terms" [binary]="true" inputId="terms" />
+      <label for="terms" class="ml-2"
+        >I agree with the terms and privacy policy.</label
+      >
+    </div>
+    <button
+      pButton
+      label="Register"
+      class="p-button-raised p-button-rounded p-button-text"
+      (click)="register()"
+      [loading]="loading"
+    ></button>
+  </div>
+  <div class="footer">
+    <a (click)="goBack()">Return to login</a>
+  </div>
+</div>
