@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ep-menu',
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css',
+  styleUrl: './menu.component.scss',
   standalone: false,
 })
 export class MenuComponent {
@@ -25,5 +25,9 @@ export class MenuComponent {
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/authentication']);
+  }
+
+  goTo(link: string) {
+    this.router.navigate([link]);
   }
 }

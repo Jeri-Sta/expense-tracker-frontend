@@ -1,13 +1,26 @@
 <nav class="navbar">
-  <ul class="menu">
-    <li *ngFor="let item of menuItems" class="dropdown">
-      <a [routerLink]="item.link || '#'">{{ item.label }}</a>
-      <ul *ngIf="item.submenu" class="submenu">
-        <li *ngFor="let sub of item.submenu">
-          <a [routerLink]="sub.link">{{ sub.label }}</a>
-        </li>
-      </ul>
-    </li>
-    <a class="logout" (click)="logout()">Logout</a>
-  </ul>
+  <div class="header">
+    <img src="assets/logo.png" alt="logo" />
+    <p>Expense Tracker</p>
+  </div>
+  <div class="body">
+    <div class="menu"><p>Menu</p></div>
+
+    <div class="routers">
+      <button (click)="goTo('/dashboard')" label="Dashboard" pButton></button>
+      <button (click)="goTo('/card')" label="Cards" pButton></button>
+      <button (click)="goTo('/category')" label="Categories" pButton></button>
+      <button
+        (click)="goTo('/configuration')"
+        label="Configurations"
+        pButton
+      ></button>
+    </div>
+    <div class="logout">
+      <button (click)="logout()" label="Logout" pButton></button>
+    </div>
+  </div>
+  <div class="footer">
+    <p>By Jeriel Starosky, 2025.</p>
+  </div>
 </nav>

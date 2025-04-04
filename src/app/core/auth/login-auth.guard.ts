@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
