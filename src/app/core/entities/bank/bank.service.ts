@@ -10,6 +10,6 @@ export class BankService extends EntityService<BankDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/bank');
+    super(http, messageService, 'http://localhost:8083/expense-tracker/bank');
   }
 }

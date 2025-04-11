@@ -1,74 +1,118 @@
-<body class="container">
-  <div class="month-select">
-    <p-button
-      icon="pi pi-chevron-left"
-      [rounded]="true"
-      [outlined]="true"
-      (click)="previousMonth()"
-    />
-    <p>{{ formatDate(currentDate) }}</p>
-    <p-button
-      icon="pi pi-chevron-right"
-      [rounded]="true"
-      [outlined]="true"
-      (click)="nextMonth()"
-    />
+<header class="header">
+  <div class="title">
+    <p>Dashboard</p>
+    <div class="line"></div>
   </div>
-  <div class="main-container">
-    <div class="side-container-1">
-      <div class="resume">
-        <p-card header="Renda mensal">
-          <p>{{ resumeData?.monthlyIncome }}</p>
-        </p-card>
-        <p-card header="Despesas mensais">
-          <p>{{ resumeData?.monthlyExpenses }}</p>
-        </p-card>
-        <p-card header="Saldo total">
-          <p>{{ resumeData?.totalBalance }}</p>
-        </p-card>
+  <div class="info">
+    <div class="info-background"></div>
+    <div class="info-content">
+      <div class="info-cards">
+        <div class="input-group">
+          <label for="monthly-expenses">Despesas mensais</label>
+          <p-inputnumber
+            id="monthly-expenses"
+            ngModel="{{ resumeData?.monthlyExpenses }}"
+            [disabled]="true"
+            mode="currency"
+            locale="pt-BR"
+            currency="BRL"
+            class="expense"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="monthly-income">Renda mensal</label>
+          <p-inputnumber
+            id="monthly-income"
+            ngModel="{{ resumeData?.monthlyIncome }}"
+            [disabled]="true"
+            mode="currency"
+            locale="pt-BR"
+            currency="BRL"
+            class="income"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="total-balance">Saldo total</label>
+          <p-inputnumber
+            id="total-balance"
+            ngModel="{{ resumeData?.totalBalance }}"
+            [disabled]="true"
+            mode="currency"
+            locale="pt-BR"
+            currency="BRL"
+            class="balance"
+          />
+        </div>
       </div>
-      <div class="table">
-        <p-panel class="resume-table" header="Resumo">
-          <p-tabs [value]="0">
-            <p-tablist>
-              <p-tab [value]="0">Gastos</p-tab>
-              <p-tab [value]="1">Renda</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-              <p-tabpanel [value]="0">
-                <ex-expense
-                  #exExpense
-                  [currentDate]="currentDate"
-                  (reloadResume)="getResume()"
-                  (updateChart)="setChart($event)"
-                ></ex-expense>
-              </p-tabpanel>
-              <p-tabpanel [value]="1">
-                <ex-income
-                  #exIncome
-                  [currentDate]="currentDate"
-                  (reloadResume)="getResume()"
-                ></ex-income>
-              </p-tabpanel>
-            </p-tabpanels>
-          </p-tabs>
-        </p-panel>
+
+      <div class="date-picker">
+        <label for="month-select">Período</label>
+        <div class="month-select" id="month-select">
+          <p-button
+            icon="pi pi-chevron-left"
+            [rounded]="true"
+            [outlined]="true"
+            (click)="previousMonth()"
+          />
+          <p>{{ formatDate(currentDate) }}</p>
+          <p-button
+            icon="pi pi-chevron-right"
+            [rounded]="true"
+            [outlined]="true"
+            (click)="nextMonth()"
+          />
+        </div>
       </div>
     </div>
-    <div class="side-container-2">
-      <div class="card">
-        <p-panel header="Cartões"></p-panel>
-      </div>
-      <div class="chart">
-        <p-panel class="graphic" header="Gráfico">
-          <p-chart
-            type="pie"
-            [data]="chartData"
-            [options]="chartOptions"
-            [style]="{ width: '17rem', height: '17rem' }"
-          ></p-chart>
-        </p-panel>
-      </div>
+  </div>
+</header>
+<body>
+  <div class="main-container">
+    <div class="container-title"><p>Resumo</p></div>
+    <div class="container-header">
+      <p-selectbutton
+        [options]="stateOptions"
+        [(ngModel)]="toggleState"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+      ></p-selectbutton>
+      <p-button
+        (onClick)="newRegister()"
+        severity="success"
+        label="Novo"
+        icon="pi pi-plus"
+      ></p-button>
+    </div>
+    <div class="container-body">
+      <ex-expense
+        *ngIf="toggleState === 'expenses'"
+        #exExpense
+        [currentDate]="currentDate"
+        (reloadResume)="getResume()"
+        (updateChart)="setChart($event)"
+      ></ex-expense>
+      <ex-income
+        *ngIf="toggleState === 'income'"
+        #exIncome
+        [currentDate]="currentDate"
+        (reloadResume)="getResume()"
+      ></ex-income>
+    </div>
+  </div>
+  <div class="side-container">
+    <div class="chart-container">
+      <p-chart
+        #chart
+        type="pie"
+        [data]="chartData"
+        [options]="chartOptions"
+        [style]="{ width: '80%', height: '80%' }"
+        [responsive]="true"
+      >
+      </p-chart>
     </div>
   </div>
 </body>

@@ -1,40 +1,39 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import { ResumeService } from '../../core/entities/resume/resume.service';
 import ResumeDto from '../../core/entities/resume/resume-dto';
 import ExpenseDto from '../../core/entities/expense/expense-dto';
-import { FormGroup } from '@angular/forms';
-import IncomeDto from '../../core/entities/income/income-dto';
 import { IncomeComponent } from '../income/income.component';
 import { ExpenseComponent } from '../expense/expense.component';
-import { DatePicker } from 'primeng/datepicker';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  styleUrl: './dashboard.component.scss',
   standalone: false,
 })
 export class DashboardComponent implements OnInit {
   currentDate: Date = new Date();
   resumeData?: ResumeDto;
 
+  chart!: Chart;
   chartData: any;
   chartOptions: any;
+
+  stateOptions: any[] = [
+    { label: 'Gastos', value: 'expenses' },
+    { label: 'Renda', value: 'income' },
+  ];
+  toggleState = 'expenses';
 
   @ViewChild('exExpense')
   expenseComponent!: ExpenseComponent;
   @ViewChild('exIncome')
   incomeComponent!: IncomeComponent;
 
-  constructor(private resumeService: ResumeService) {}
+  constructor(private readonly resumeService: ResumeService) {}
 
   ngOnInit(): void {
     this.getResume();
@@ -58,7 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   formatDate(date: Date): string {
-    return moment(date).locale('pt-br').format('MMM/YYYY');
+    return moment(date).locale('pt-br').format('MMM - YYYY');
   }
 
   nextMonth(): void {
@@ -79,8 +78,8 @@ export class DashboardComponent implements OnInit {
 
   setChart(data: ExpenseDto[]) {
     const groupedExpenses = data.reduce((acc, expense) => {
-      const categoryName = expense.category?.name || 'Uncategorized';
-      const categoryColor = expense.category?.color;
+      const categoryName = expense.category?.name ?? 'Sem categoria';
+      const categoryColor = expense.category?.color ?? '#808080';
 
       const valueToUse =
         expense.installmentsRegisters.length > 0
@@ -108,9 +107,26 @@ export class DashboardComponent implements OnInit {
         {
           data: aggregatedData.map((exp) => exp.totalValue),
           backgroundColor: aggregatedData.map((exp) => exp.color),
+          borderColor: aggregatedData.map((exp) => exp.color),
         },
       ],
     };
+    this.chartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+      },
+    };
+  }
+
+  newRegister() {
+    if (this.toggleState === 'expenses') {
+      this.expenseComponent.newExpense();
+    } else {
+      this.incomeComponent.newIncome();
+    }
   }
 }
 

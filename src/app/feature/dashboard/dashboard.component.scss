@@ -1,0 +1,214 @@
+header {
+  .title {
+    padding: 0 30px;
+    .line {
+      background-color: var(--p-primary-700);
+      border-radius: 15px;
+      height: 5px;
+      width: 50%;
+      box-shadow: 0px 4px 4px 0px rgba(2, 0, 0, 0.836);
+    }
+
+    p {
+      font-family: "Jetbrains Mono", monospace;
+      color: var(--p-primary-200);
+      margin-bottom: 10px;
+    }
+  }
+
+  .info {
+    margin-top: 50px;
+    position: relative;
+
+    label {
+      color: var(--p-primary-200);
+      font-family: "Jebrains Mono", monospace;
+    }
+
+    .info-background {
+      position: absolute;
+      background-color: var(--p-primary-800);
+      width: 100%;
+      height: 50px;
+      top: 32px;
+      z-index: 1;
+    }
+
+    .info-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 30px;
+
+      .info-cards {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          z-index: 2;
+
+          label {
+            margin-bottom: 20px;
+          }
+
+          .expense {
+            ::ng-deep p-inputgroup-addon {
+              background-color: var(--p-red-400);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+
+            ::ng-deep input {
+              background-color: var(--p-red-400);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+          }
+
+          .income {
+            ::ng-deep p-inputgroup-addon {
+              background-color: var(--p-green-400);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+
+            ::ng-deep input {
+              background-color: var(--p-green-400);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+          }
+
+          .balance {
+            ::ng-deep p-inputgroup-addon {
+              background-color: var(--p-primary-50);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+
+            ::ng-deep input {
+              background-color: var(--p-primary-50);
+              color: var(--p-primary-950);
+              font-family: "Jetbrains Mono", monospace;
+            }
+          }
+        }
+      }
+
+      .date-picker {
+        z-index: 2;
+
+        .month-select {
+          width: 100%;
+          height: 39px;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          z-index: 2;
+          background-color: var(--p-primary-50);
+          border-radius: 5px;
+          margin-top: 20px;
+          padding: 0 10px;
+
+          p {
+            color: var(--p-primary-950);
+            font-family: "Jetbrains Mono", monospace;
+            margin: 0;
+            padding: 8px;
+          }
+
+          ::ng-deep .p-button-icon-only {
+            width: 20px;
+            height: 20px;
+          }
+
+          ::ng-deep .p-button-icon {
+            width: 10px;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+
+  p {
+    font-family: "Jetbrains Mono", monospace;
+    color: var(--p-primary-200);
+    margin: 7px 30px;
+  }
+
+  .main-container {
+    width: 100%;
+    height: 100%;
+    flex: 10;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .container-title {
+      width: 100%;
+    }
+
+    .container-header {
+      width: 95%;
+      height: 80px;
+      background-color: var(--p-primary-750);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+
+      ::ng-deep p-button {
+        font-family: "Jetbrains Mono", monospace;
+
+        ::ng-deep .p-button-label {
+          margin: 6px 20px;
+        }
+      }
+
+      ::ng-deep p-togglebutton {
+        font-family: "Jetbrains Mono", monospace;
+
+        ::ng-deep .p-togglebutton-content {
+          margin: 6px 30px;
+        }
+      }
+    }
+
+    .container-body {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+
+  .side-container {
+    width: 100%;
+    height: 100%;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .chart-container {
+      position: relative;
+      padding: 30px;
+      width: 80%;
+      height: 80%;
+    }
+  }
+}

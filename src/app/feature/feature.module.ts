@@ -32,6 +32,8 @@ import { RouterModule } from '@angular/router';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { PasswordRecoveryFormComponent } from './login/password-recovery-form/password-recovery-form.component';
 import { RegisterFormComponent } from './login/register-form/register-form.component';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { RegisterFormComponent } from './login/register-form/register-form.compo
     InputIconModule,
     PasswordModule,
     RouterModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
 })
 export class FeatureModule {}

@@ -11,14 +11,21 @@ export class ExpenseService extends EntityService<ExpenseDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/expense');
+    super(
+      http,
+      messageService,
+      'http://localhost:8083/expense-tracker/expense'
+    );
   }
 
   public getExpenses(date: Date) {
-    return this.http.get<ExpenseDto[]>('http://localhost:8080/expense', {
-      params: {
-        referenceDate: moment(date).format('YYYY-MM-DD'),
-      },
-    });
+    return this.http.get<ExpenseDto[]>(
+      'http://localhost:8083/expense-tracker/expense',
+      {
+        params: {
+          referenceDate: moment(date).format('YYYY-MM-DD'),
+        },
+      }
+    );
   }
 }

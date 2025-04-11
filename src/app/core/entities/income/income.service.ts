@@ -11,14 +11,17 @@ export class IncomeService extends EntityService<IncomeDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/income');
+    super(http, messageService, 'http://localhost:8083/expense-tracker/income');
   }
 
   public getIncome(date: Date) {
-    return this.http.get<IncomeDto[]>('http://localhost:8080/income', {
-      params: {
-        referenceDate: moment(date).format('YYYY-MM-DD'),
-      },
-    });
+    return this.http.get<IncomeDto[]>(
+      'http://localhost:8083/expense-tracker/income',
+      {
+        params: {
+          referenceDate: moment(date).format('YYYY-MM-DD'),
+        },
+      }
+    );
   }
 }

@@ -10,18 +10,24 @@ export class UserService extends EntityService<UserDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/auth');
+    super(http, messageService, 'http://localhost:8083/authentication');
   }
 
   public register(user: UserDto) {
-    return this.http.post<UserDto>('http://localhost:8080/auth/register', {
-      ...user,
-    });
+    return this.http.post<UserDto>(
+      'http://localhost:8083/authentication/register',
+      {
+        ...user,
+      }
+    );
   }
 
   public login(user: UserDto) {
-    return this.http.post<UserDto>('http://localhost:8080/auth/login', {
-      ...user,
-    });
+    return this.http.post<UserDto>(
+      'http://localhost:8083/authentication/login',
+      {
+        ...user,
+      }
+    );
   }
 }

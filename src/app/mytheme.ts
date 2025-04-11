@@ -672,8 +672,8 @@ export const MyPreset = definePreset(Aura, {
   },
   components: {
     datatable: {
-      headerCellBackground: '{surface.800}',
-      rowBackground: '{surface.600}',
+      headerCellBackground: '{primary.900}',
+      rowBackground: '{primary.600}',
     },
     card: {
       background: '{surface.700}',

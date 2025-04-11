@@ -11,13 +11,16 @@ export class ResumeService extends EntityService<ResumeDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/resume');
+    super(http, messageService, 'http://localhost:8083/expense-tracker/resume');
   }
 
   public getResume(date: Date) {
     const currentDate = moment(date).format('YYYY-MM-DD');
-    return this.http.post<ResumeDto>('http://localhost:8080/resume', {
-      currentDate,
-    });
+    return this.http.post<ResumeDto>(
+      'http://localhost:8083/expense-tracker/resume',
+      {
+        currentDate,
+      }
+    );
   }
 }

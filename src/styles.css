@@ -10,5 +10,13 @@ html {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: var(--p-surface-900);
+  background-color: var(--p-primary-850);
+}
+
+th {
+  font-family: "JetBrains Mono", monospace;
+}
+
+td {
+  font-family: "JetBrains Mono", monospace;
 }

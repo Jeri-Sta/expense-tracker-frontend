@@ -1,4 +1,3 @@
-<p-button (click)="newExpense()" label="Novo" icon="pi pi-plus"></p-button>
 <p-table
   dataKey="id"
   [value]="expensesData"
@@ -8,7 +7,7 @@
 >
   <ng-template #header>
     <tr>
-      <th style="width: 5rem"></th>
+      <th style="padding-right: 0; padding-left: 0; width: 3rem"></th>
       <th>Nome</th>
       <th>Categoria</th>
       <th>Cartão</th>
@@ -20,7 +19,7 @@
   </ng-template>
   <ng-template #body let-expense let-expanded="expanded">
     <tr>
-      <td>
+      <td style="padding-right: 0; padding-left: 0">
         <p-button
           *ngIf="expense.installmentsRegisters.length > 0"
           type="button"

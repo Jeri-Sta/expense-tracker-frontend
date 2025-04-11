@@ -10,6 +10,10 @@ export class CategoryService extends EntityService<CategoryDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8080/category');
+    super(
+      http,
+      messageService,
+      'http://localhost:8083/expense-tracker/category'
+    );
   }
 }
