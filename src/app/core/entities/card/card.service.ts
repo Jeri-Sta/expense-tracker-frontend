@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EntityService } from '../entity-service';
 import { MessageService } from 'primeng/api';
 import CardDto from './card-dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class CardService extends EntityService<CardDto> {
@@ -10,6 +11,6 @@ export class CardService extends EntityService<CardDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8083/expense-tracker/card');
+    super(http, messageService, `${environment.apiUrl}/expense-tracker/card`);
   }
 }

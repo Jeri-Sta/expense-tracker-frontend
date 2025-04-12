@@ -4,6 +4,7 @@ import { EntityService } from '../entity-service';
 import { MessageService } from 'primeng/api';
 import ExpenseDto from './expense-dto';
 import moment from 'moment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class ExpenseService extends EntityService<ExpenseDto> {
@@ -14,13 +15,13 @@ export class ExpenseService extends EntityService<ExpenseDto> {
     super(
       http,
       messageService,
-      'http://localhost:8083/expense-tracker/expense'
+      `${environment.apiUrl}/expense-tracker/expense`
     );
   }
 
   public getExpenses(date: Date) {
     return this.http.get<ExpenseDto[]>(
-      'http://localhost:8083/expense-tracker/expense',
+      `${environment.apiUrl}/expense-tracker/expense`,
       {
         params: {
           referenceDate: moment(date).format('YYYY-MM-DD'),

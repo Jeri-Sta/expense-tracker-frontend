@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EntityService } from '../entity-service';
 import CategoryDto from './category-dto';
 import { MessageService } from 'primeng/api';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class CategoryService extends EntityService<CategoryDto> {
@@ -13,7 +14,7 @@ export class CategoryService extends EntityService<CategoryDto> {
     super(
       http,
       messageService,
-      'http://localhost:8083/expense-tracker/category'
+      `${environment.apiUrl}/expense-tracker/category`
     );
   }
 }

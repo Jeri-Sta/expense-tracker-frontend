@@ -4,6 +4,7 @@ import { EntityService } from '../entity-service';
 import { MessageService } from 'primeng/api';
 import ResumeDto from './resume-dto';
 import moment from 'moment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class ResumeService extends EntityService<ResumeDto> {
@@ -11,13 +12,13 @@ export class ResumeService extends EntityService<ResumeDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, 'http://localhost:8083/expense-tracker/resume');
+    super(http, messageService, `${environment.apiUrl}/expense-tracker/resume`);
   }
 
   public getResume(date: Date) {
     const currentDate = moment(date).format('YYYY-MM-DD');
     return this.http.post<ResumeDto>(
-      'http://localhost:8083/expense-tracker/resume',
+      `${environment.apiUrl}/expense-tracker/resume`,
       {
         currentDate,
       }
