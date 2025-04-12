@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Ambiente produção'
+        description: "Ambiente produção"
         required: false
-        default: 'production'
+        default: "production"
 
 jobs:
   build-and-deploy:
@@ -32,4 +32,4 @@ jobs:
 
       - name: Deploy to Vercel
         run: |
-          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend/broswer
