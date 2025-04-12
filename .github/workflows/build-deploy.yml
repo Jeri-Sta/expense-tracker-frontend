@@ -32,9 +32,4 @@ jobs:
 
       - name: Deploy to Vercel
         run: |
-          vercel --prod \
-                 --cwd ./dist/expense-tracker-frontend \
-                 --token=${{ secrets.VERCEL_TOKEN }} \
-                 --confirm \
-                 --scope ${{ secrets.VERCEL_SCOPE }} \
-                 --project-name ${{ secrets.VERCEL_PROJECT }}
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend/browser
