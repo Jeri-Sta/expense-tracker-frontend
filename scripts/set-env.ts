@@ -1,5 +1,5 @@
 // scripts/set-env.ts
-import * as fs from 'fs';
+const fs = require('fs');
 
 const targetPath = './src/environments/environment.prod.ts';
 
