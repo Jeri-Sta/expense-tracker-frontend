@@ -1,5 +1,4 @@
 {
   "project": "expense-tracker-frontend",
-  "org": "jeristas-projects",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
