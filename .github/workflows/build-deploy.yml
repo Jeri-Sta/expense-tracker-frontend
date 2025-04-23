@@ -49,10 +49,3 @@ jobs:
           curl -X POST https://api.squarecloud.app/v2/apps \
             -H "Authorization: ${{ secrets.SQUARE_TOKEN }}" \
             -F "file=@app.zip"
-
-      # - name: Install Vercel CLI
-      #   run: npm install -g vercel
-
-      # - name: Deploy to Vercel
-      #   run: |
-      #     vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend/browser
