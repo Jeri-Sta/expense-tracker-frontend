@@ -27,6 +27,17 @@ jobs:
       - name: Build Angular app
         run: npm run build
 
+      - name: Create file squarecloud.config
+        run: |
+          cat <<EOF > dist/squarecloud.config
+          MAIN=browser/index.html
+          MEMORY=512
+          VERSION=recommended
+          DISPLAY_NAME=Expense-Tracker-Frontend
+          AUTORESTART=true
+          SUBDOMAIN=expense-tracker
+          EOF
+
       - name: Compact project
         run: |
           cd dist/
