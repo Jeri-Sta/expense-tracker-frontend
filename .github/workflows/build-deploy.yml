@@ -27,9 +27,20 @@ jobs:
       - name: Build Angular app
         run: npm run build
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
+      - name: Install Square Cloud CLI
+        run: npm install -g @squarecloud/cli
 
-      - name: Deploy to Vercel
+      - name: Authenticate with Square Cloud CLI
+        run: square auth ${{ secrets.SQUARE_TOKEN }}
+
+      - name: Deploy with Square Cloud CLI
         run: |
-          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend/browser
+          cd dist/
+          square deploy
+
+      # - name: Install Vercel CLI
+      #   run: npm install -g vercel
+
+      # - name: Deploy to Vercel
+      #   run: |
+      #     vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --cwd ./dist/expense-tracker-frontend/browser
