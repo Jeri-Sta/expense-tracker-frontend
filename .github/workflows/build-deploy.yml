@@ -29,8 +29,8 @@ jobs:
 
       - name: Create file squarecloud.config
         run: |
-          cat <<EOF > dist/squarecloud.config
-          MAIN=expense-tracker-frontend/browser/index.html
+          cat <<EOF > dist/expense-tracker-frontend/browser/squarecloud.config
+          MAIN=index.html
           MEMORY=512
           VERSION=recommended
           DISPLAY_NAME=Expense-Tracker-Frontend
@@ -40,9 +40,9 @@ jobs:
 
       - name: Compact project
         run: |
-          cd dist/
+          cd dist/expense-tracker-frontend/browser
           zip -r app.zip ./*
-          mv app.zip ../
+          mv app.zip ../../..
 
       - name: Deploy to Square Cloud
         run: |
