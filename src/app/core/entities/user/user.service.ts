@@ -24,7 +24,6 @@ export class UserService extends EntityService<UserDto> {
   }
 
   public login(user: UserDto) {
-    console.log(environment.apiUrl);
     return this.http.post<UserDto>(
       `${environment.apiUrl}/authentication/login`,
       {
