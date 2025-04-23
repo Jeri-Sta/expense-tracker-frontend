@@ -27,17 +27,17 @@ jobs:
       - name: Build Angular app
         run: npm run build
 
-      - name: Install Square Cloud CLI
-        run: |
-          curl -fsSL https://cli.squarecloud.app/install | bash
-
-      - name: Authenticate with Square Cloud CLI
-        run: squarecloud login ${{ secrets.SQUARE_TOKEN }}
-
-      - name: Deploy with Square Cloud CLI
+      - name: Compact project
         run: |
           cd dist/
-          squarecloud upload
+          zip -r app.zip ./*
+          mv app.zip ../
+
+      - name: Deploy to Square Cloud
+        run: |
+          curl -X POST https://api.squarecloud.app/v2/apps \
+            -H "Authorization: ${{ secrets.SQUARE_TOKEN }}" \
+            -F "file=@app.zip"
 
       # - name: Install Vercel CLI
       #   run: npm install -g vercel
