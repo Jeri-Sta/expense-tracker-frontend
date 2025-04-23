@@ -28,7 +28,8 @@ jobs:
         run: npm run build
 
       - name: Install Square Cloud CLI
-        run: npm install -g @squarecloud/cli
+        run: |
+          curl -fsSL https://cli.squarecloud.app/install | bash
 
       - name: Authenticate with Square Cloud CLI
         run: square auth ${{ secrets.SQUARE_TOKEN }}
