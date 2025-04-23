@@ -32,12 +32,12 @@ jobs:
           curl -fsSL https://cli.squarecloud.app/install | bash
 
       - name: Authenticate with Square Cloud CLI
-        run: square auth ${{ secrets.SQUARE_TOKEN }}
+        run: squarecloud login ${{ secrets.SQUARE_TOKEN }}
 
       - name: Deploy with Square Cloud CLI
         run: |
           cd dist/
-          square deploy
+          squarecloud upload
 
       # - name: Install Vercel CLI
       #   run: npm install -g vercel
