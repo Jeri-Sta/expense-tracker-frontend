@@ -30,7 +30,7 @@ jobs:
       - name: Create file squarecloud.config
         run: |
           cat <<EOF > dist/squarecloud.config
-          MAIN=browser/index.html
+          MAIN=expense-tracker-frontend/browser/index.html
           MEMORY=512
           VERSION=recommended
           DISPLAY_NAME=Expense-Tracker-Frontend
