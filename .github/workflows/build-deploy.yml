@@ -45,6 +45,6 @@ jobs:
 
       - name: Deploy to Square Cloud
         run: |
-          curl -X POST https://api.squarecloud.app/v2/apps/df86ff605b5341caba295a5aa3735b16/commit \
+          curl -X POST https://api.squarecloud.app/v2/apps/e2d9663546094b188f7d611083daa2b8/commit \
             -H "Authorization: ${{ secrets.SQUARE_TOKEN }}" \
             -F "file=@app.zip"
