@@ -17,7 +17,7 @@ export class IncomeService extends EntityService<IncomeDto> {
 
   public getIncome(date: Date) {
     return this.http.get<IncomeDto[]>(
-      `${environment.apiUrl}/expense-tracker/income`,
+      `${environment.apiUrl}/income`,
       {
         params: {
           referenceDate: moment(date).format('YYYY-MM-DD'),
