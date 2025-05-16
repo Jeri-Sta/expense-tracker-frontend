@@ -15,7 +15,7 @@ export class ExpenseService extends EntityService<ExpenseDto> {
     super(
       http,
       messageService,
-      `${environment.apiUrl}/expense-tracker/expense`
+      `${environment.apiUrl}/expense`
     );
   }
 
