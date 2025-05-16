@@ -14,7 +14,7 @@ export class CategoryService extends EntityService<CategoryDto> {
     super(
       http,
       messageService,
-      `${environment.apiUrl}/expense-tracker/category`
+      `${environment.apiUrl}/category`
     );
   }
 }
