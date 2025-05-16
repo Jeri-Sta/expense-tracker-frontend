@@ -11,6 +11,6 @@ export class BankService extends EntityService<BankDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, `${environment.apiUrl}/expense-tracker/bank`);
+    super(http, messageService, `${environment.apiUrl}/bank`);
   }
 }
