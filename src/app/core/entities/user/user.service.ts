@@ -11,12 +11,12 @@ export class UserService extends EntityService<UserDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, `${environment.apiUrl}/authentication`);
+    super(http, messageService, `${environment.apiUrl}/auth`);
   }
 
   public register(user: UserDto) {
     return this.http.post<UserDto>(
-      `${environment.apiUrl}/authentication/register`,
+      `${environment.apiUrl}/auth/register`,
       {
         ...user,
       }
@@ -25,7 +25,7 @@ export class UserService extends EntityService<UserDto> {
 
   public login(user: UserDto) {
     return this.http.post<UserDto>(
-      `${environment.apiUrl}/authentication/login`,
+      `${environment.apiUrl}/auth/login`,
       {
         ...user,
       }
