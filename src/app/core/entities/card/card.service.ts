@@ -11,6 +11,6 @@ export class CardService extends EntityService<CardDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, `${environment.apiUrl}/expense-tracker/card`);
+    super(http, messageService, `${environment.apiUrl}/card`);
   }
 }
