@@ -44,7 +44,7 @@ export class RegisterFormComponent implements OnInit {
       terms: [false, Validators.requiredTrue],
     });
 
-    formGroup.get('toggleState')?.valueChanges.subscribe((value) => {
+    formGroup.get('toggleState')?.valueChanges.subscribe((value: any) => {
       if (value === 'invited') {
         formGroup.get('inviteCode')?.setValidators([Validators.required]);
         formGroup.get('paymentDay')?.clearValidators();
