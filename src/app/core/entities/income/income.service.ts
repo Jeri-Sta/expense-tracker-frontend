@@ -12,7 +12,7 @@ export class IncomeService extends EntityService<IncomeDto> {
     protected override http: HttpClient,
     protected override messageService: MessageService
   ) {
-    super(http, messageService, `${environment.apiUrl}/expense-tracker/income`);
+    super(http, messageService, `${environment.apiUrl}/income`);
   }
 
   public getIncome(date: Date) {

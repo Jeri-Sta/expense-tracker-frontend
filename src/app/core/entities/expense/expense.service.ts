@@ -21,7 +21,7 @@ export class ExpenseService extends EntityService<ExpenseDto> {
 
   public getExpenses(date: Date) {
     return this.http.get<ExpenseDto[]>(
-      `${environment.apiUrl}/expense-tracker/expense`,
+      `${environment.apiUrl}/expense`,
       {
         params: {
           referenceDate: moment(date).format('YYYY-MM-DD'),
