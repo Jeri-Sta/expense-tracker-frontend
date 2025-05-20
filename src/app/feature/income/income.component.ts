@@ -40,6 +40,10 @@ export class IncomeComponent implements OnInit {
       name: [undefined, Validators.required],
       value: [0, Validators.required],
       incomeDate: [undefined, Validators.required],
+      createdBy: [undefined],
+      lastModifiedBy: [undefined],
+      createdAt: [undefined],
+      updatedAt: [undefined],
     });
   }
 
@@ -80,12 +84,20 @@ export class IncomeComponent implements OnInit {
     }
 
     let observable: Observable<any>;
+    this.loading = true;
     if (this.formGroup.get('id')?.value) {
       observable = this.incomeUpdateObservaable();
     } else {
       observable = this.incomeInsertObservaable();
     }
-    observable.subscribe(() => {
+    observable.pipe(
+      catchError((error) => {
+        this.loading = false;
+        return error;
+      })
+    )
+    .subscribe(() => {
+      this.loading = false;
       this.getIncome();
       this.reloadResume.emit();
       this.incomeFormVisible = false;

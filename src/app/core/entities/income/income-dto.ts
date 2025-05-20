@@ -3,4 +3,8 @@ export default interface IncomeDto {
   name: string;
   value: number;
   incomeDate: string;
+  createdBy?: string;
+  lastModifiedBy?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

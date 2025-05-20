@@ -73,6 +73,10 @@ export class ExpenseComponent implements OnInit {
       value: [0, Validators.required],
       expenseDate: [undefined, Validators.required],
       installments: [1, Validators.required],
+      createdBy: [undefined],
+      lastModifiedBy: [undefined],
+      createdAt: [undefined],
+      updatedAt: [undefined],
     });
   }
 
@@ -113,12 +117,20 @@ export class ExpenseComponent implements OnInit {
     }
 
     let observable: Observable<any>;
+    this.loading = true;
     if (this.formGroup.get('id')?.value) {
       observable = this.expenseUpdateObservaable();
     } else {
       observable = this.expenseInsertObservaable();
     }
-    observable.subscribe(() => {
+    observable.pipe(
+      catchError((error) => {
+        this.loading = false;
+        return error;
+      })
+    )
+    .subscribe(() => {
+      this.loading = false;
       this.getExpenses();
       this.reloadResume.emit();
       this.expenseFormVisible = false;

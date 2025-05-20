@@ -7,7 +7,8 @@
     "set-env": "ts-node scripts/set-env.ts",
     "build": "npm run set-env && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start:prod": "serve -s dist/expense-tracker-frontend/browser -l 80"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "primeicons": "^7.0.0",
     "primeng": "^19.0.6",
     "rxjs": "~7.8.0",
+    "serve": "^14.2.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

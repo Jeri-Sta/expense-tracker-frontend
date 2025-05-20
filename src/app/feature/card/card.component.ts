@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import CardDto from '../../core/entities/card/card-dto';
 import { CardService } from '../../core/entities/card/card.service';
 import moment from 'moment';
@@ -76,6 +76,10 @@ export class CardComponent implements OnInit {
       bank: [undefined, Validators.required],
       limit: [undefined, Validators.required],
       closingDay: [undefined, Validators.required],
+      createdBy: [undefined],
+      lastModifiedBy: [undefined],
+      createdAt: [undefined],
+      updatedAt: [undefined],
     });
   }
 
@@ -102,13 +106,21 @@ export class CardComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     let observable: Observable<any>;
     if (this.formGroup.get('id')?.value) {
       observable = this.updateObservaable();
     } else {
       observable = this.insertObservaable();
     }
-    observable.subscribe((data) => {
+    observable.pipe(
+      catchError((error) => {
+        this.loading = false;
+        return error;
+      })
+    )
+    .subscribe((data) => {
+      this.loading = false;
       this.getCard();
       this.formVisible = false;
       this.formGroup.reset();

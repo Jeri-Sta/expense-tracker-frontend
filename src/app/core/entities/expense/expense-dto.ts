@@ -11,4 +11,8 @@ export default interface ExpenseDto {
   expenseDate: string;
   installments: number;
   installmentsRegisters: InstallmentDto[];
+  createdBy?: string;
+  lastModifiedBy?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

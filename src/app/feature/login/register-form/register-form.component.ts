@@ -10,10 +10,6 @@ import { UserService } from '../../../core/entities/user/user.service';
   standalone: false,
 })
 export class RegisterFormComponent implements OnInit {
-  stateOptions: any[] = [
-    { label: 'Normal', value: 'normal' },
-    { label: 'Invited', value: 'invited' },
-  ];
 
   formGroup!: FormGroup;
   loading: boolean = false;
@@ -39,19 +35,7 @@ export class RegisterFormComponent implements OnInit {
       password: [undefined, Validators.required],
       ownerEmail: [undefined],
       paymentDay: [undefined, Validators.required],
-      inviteCode: [undefined],
-      toggleState: ['normal'],
       terms: [false, Validators.requiredTrue],
-    });
-
-    formGroup.get('toggleState')?.valueChanges.subscribe((value: any) => {
-      if (value === 'invited') {
-        formGroup.get('inviteCode')?.setValidators([Validators.required]);
-        formGroup.get('paymentDay')?.clearValidators();
-      } else {
-        formGroup.get('paymentDay')?.setValidators([Validators.required]);
-        formGroup.get('inviteCode')?.clearValidators();
-      }
     });
 
     return formGroup;

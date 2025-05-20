@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../core/entities/category/category.service';
 import CategoryDto from '../../core/entities/category/category-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
@@ -63,6 +63,10 @@ export class CategoryComponent implements OnInit {
       name: [undefined, Validators.required],
       color: ['#ffffff'],
       fixedExpense: [false],
+      createdBy: [undefined],
+      lastModifiedBy: [undefined],
+      createdAt: [undefined],
+      updatedAt: [undefined],
     });
   }
 
@@ -89,13 +93,21 @@ export class CategoryComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     let observable: Observable<any>;
     if (this.formGroup.get('id')?.value) {
       observable = this.updateObservaable();
     } else {
       observable = this.insertObservaable();
     }
-    observable.subscribe((data) => {
+    observable.pipe(
+      catchError((error) => {
+        this.loading = false;
+        return error;
+      })
+    )
+    .subscribe((data) => {
+      this.loading = false;
       this.getCategory();
       this.formVisible = false;
       this.formGroup.reset();

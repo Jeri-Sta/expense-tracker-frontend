@@ -3,4 +3,8 @@ export default interface InstallmentDto {
   installmentNumber: number;
   value: number;
   installmentDate: string;
+  createdBy?: string;
+  lastModifiedBy?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

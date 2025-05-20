@@ -67,28 +67,6 @@
       background-color: var(--p-primary-150);
     }
 
-    .toggle {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-
-      ::ng-deep .p-togglebutton {
-        background-color: var(--p-primary-600);
-        color: var(--p-primary-100);
-        font: "Alata", sans-serif;
-        font-weight: 400;
-        font-size: 15px;
-
-        ::ng-deep .p-togglebutton-checked {
-          border-color: var(--p-primary-600);
-        }
-      }
-      ::ng-deep .p-togglebutton-checked::before {
-        background-color: var(--p-primary-750);
-      }
-    }
-
     ::ng-deep .p-inputnumber-button:hover {
       background: none;
     }

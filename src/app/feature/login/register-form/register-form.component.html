@@ -63,39 +63,8 @@
       >
     </div>
 
-    <div class="toggle">
-      <p-selectbutton
-        [options]="stateOptions"
-        formControlName="toggleState"
-        optionLabel="label"
-        optionValue="value"
-        [allowEmpty]="false"
-      />
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 2px">
-      <input
-        *ngIf="formGroup.get('toggleState')?.value == 'invited'"
-        pInputText
-        type="text"
-        placeholder="Invite code"
-        formControlName="inviteCode"
-      />
-      <small
-        id="inviteCode"
-        class="error"
-        *ngIf="
-          formGroup.get('inviteCode')?.dirty &&
-          formGroup.get('inviteCode')?.invalid &&
-          formGroup.get('toggleState')?.value == 'invited'
-        "
-        >Este campo é obrigatório</small
-      >
-    </div>
-
     <div style="display: flex; flex-direction: column; gap: 2px">
       <p-inputnumber
-        *ngIf="formGroup.get('toggleState')?.value == 'normal'"
         placeholder="Payment day"
         [showButtons]="true"
         inputId="minmax-buttons"
@@ -110,8 +79,7 @@
         class="error"
         *ngIf="
           formGroup.get('paymentDay')?.dirty &&
-          formGroup.get('paymentDay')?.invalid &&
-          formGroup.get('toggleState')?.value == 'normal'
+          formGroup.get('paymentDay')?.invalid
         "
         >Este campo é obrigatório</small
       >

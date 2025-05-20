@@ -5,4 +5,8 @@ export default interface CardDto {
   limit: number;
   closingDay: number;
   bank: BankDto;
+  createdBy?: string;
+  lastModifiedBy?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

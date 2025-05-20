@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../core/entities/category/category.service';
 import CategoryDto from '../../core/entities/category/category-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { LazyLoadEvent } from 'primeng/api';
 import BankDto from '../../core/entities/bank/bank-dto';
 import { BankService } from '../../core/entities/bank/bank.service';
@@ -64,6 +64,10 @@ export class BankComponent implements OnInit {
       id: [undefined],
       name: [undefined, Validators.required],
       balance: [0.0],
+      createdBy: [undefined],
+      lastModifiedBy: [undefined],
+      createdAt: [undefined],
+      updatedAt: [undefined],
     });
   }
 
@@ -78,7 +82,9 @@ export class BankComponent implements OnInit {
   }
 
   deleteBank(bank: BankDto) {
-    this.bankService.delete(bank.id).subscribe((data) => {
+    this.bankService.delete(bank.id)
+    .subscribe((data) => {
+      this.loading = false;
       this.formVisible = false;
       this.getBank();
     });
@@ -89,14 +95,20 @@ export class BankComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-
+    this.loading = true;
     let observable: Observable<any>;
     if (this.formGroup.get('id')?.value) {
       observable = this.updateObservaable();
     } else {
       observable = this.insertObservaable();
     }
-    observable.subscribe((data) => {
+    observable.pipe(
+      catchError((error) => {
+        this.loading = false;
+        return error;
+      })
+    ).subscribe(() => {
+      this.loading = false;
       this.getBank();
       this.formVisible = false;
       this.formGroup.reset();

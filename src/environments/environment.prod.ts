@@ -1,6 +1,5 @@
-// Esse arquivo será gerado automaticamente pelo script de build.
+
 export const environment = {
   production: true,
-  apiUrl: '',
-  firebaseKey: '',
+  apiUrl: 'https://expense-tracker-backend.squareweb.app',
 };
