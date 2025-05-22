@@ -4,6 +4,7 @@ import IncomeDto from '../../core/entities/income/income-dto';
 import moment from 'moment';
 import { IncomeService } from '../../core/entities/income/income.service';
 import { catchError, Observable } from 'rxjs';
+import ColumnOptions from '../../components/table/column-options';
 
 @Component({
   selector: 'ex-income',
@@ -16,6 +17,11 @@ export class IncomeComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({});
   incomesData: IncomeDto[] = [];
   loading: boolean = false;
+  columns: ColumnOptions[] = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Valor', field: 'value', type: 'currency' },
+    { header: 'Data', field: 'incomeDate', type: 'date' },
+  ];
 
   @Input() currentDate: Date = new Date();
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();

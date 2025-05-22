@@ -9,6 +9,7 @@ import CardDto from '../../core/entities/card/card-dto';
 import { CategoryService } from '../../core/entities/category/category.service';
 import { CardService } from '../../core/entities/card/card.service';
 import InstallmentDto from '../../core/entities/installment/income-dto';
+import ColumnOptions from '../../components/table/column-options';
 
 @Component({
   selector: 'ex-expense',
@@ -24,6 +25,20 @@ export class ExpenseComponent implements OnInit {
   cards: CardDto[] = [];
   categories: CategoryDto[] = [];
   expandedRows = {};
+
+  columns: ColumnOptions[] = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Categoria', field: 'category.name' },
+    { header: 'Cartão', field: 'card.bank.name' },
+    { header: 'Valor', field: 'value', type: 'currency' },
+    { header: 'Data', field: 'expenseDate', type: 'date' },
+    { header: 'Parcelas', field: 'installments' },
+  ];
+  columnsInstallments: ColumnOptions[] = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Valor', field: 'value', type: 'currency' },
+    { header: 'Data', field: 'installmentDate', type: 'date' },
+  ];
 
   @Input() currentDate: Date = new Date();
   @Output() reloadResume: EventEmitter<any> = new EventEmitter();
@@ -59,6 +74,7 @@ export class ExpenseComponent implements OnInit {
       )
       .subscribe((expenses: ExpenseDto[]) => {
         this.expensesData = expenses;
+        console.log(this.expensesData);
         this.loading = false;
         this.updateChart.emit(this.expensesData);
       });

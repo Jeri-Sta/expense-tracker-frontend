@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../core/entities/category/category.service';
-import CategoryDto from '../../core/entities/category/category-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, Observable } from 'rxjs';
-import { LazyLoadEvent } from 'primeng/api';
 import BankDto from '../../core/entities/bank/bank-dto';
 import { BankService } from '../../core/entities/bank/bank.service';
+import ColumnOptions from '../../components/table/column-options';
 
 @Component({
   selector: 'app-bank',
@@ -17,9 +15,11 @@ export class BankComponent implements OnInit {
   data: BankDto[] = [];
   formVisible = false;
   formGroup!: FormGroup;
-  totalRecords: number = 0;
   loading: boolean = true;
-  pageSize: number = 10;
+  columns: ColumnOptions[] = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Saldo', field: 'balance' },
+  ];
 
   constructor(
     private bankService: BankService,
@@ -31,30 +31,10 @@ export class BankComponent implements OnInit {
     this.getBank();
   }
 
-  getBank(event?: any) {
+  getBank() {
     this.loading = true;
-    let paramList = {
-      page: 0,
-      size: this.pageSize,
-      sort: [
-        {
-          field: 'name',
-          order: 1,
-        },
-      ],
-    };
-    if (event) {
-      const page = event.first! / event.rows!;
-      const size = event.rows!;
-      paramList = {
-        ...paramList,
-        page: page,
-        size: size,
-      };
-    }
-    this.bankService.list(paramList).subscribe((data: any) => {
-      this.data = data.content;
-      this.totalRecords = data.totalElements;
+    this.bankService.listAll().subscribe((data: any) => {
+      this.data = data;
       this.loading = false;
     });
   }
@@ -132,9 +112,5 @@ export class BankComponent implements OnInit {
       this.formGroup.get('id')?.value,
       this.formGroup.getRawValue()
     );
-  }
-
-  onPageChange(event: any) {
-    console.log(event);
   }
 }

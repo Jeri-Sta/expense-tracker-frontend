@@ -4,6 +4,7 @@ import CategoryDto from '../../core/entities/category/category-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, Observable } from 'rxjs';
 import { LazyLoadEvent } from 'primeng/api';
+import ColumnOptions from '../../components/table/column-options';
 
 @Component({
   selector: 'app-category',
@@ -15,9 +16,12 @@ export class CategoryComponent implements OnInit {
   data: CategoryDto[] = [];
   formVisible = false;
   formGroup!: FormGroup;
-  totalRecords: number = 0;
   loading: boolean = true;
-  pageSize: number = 10;
+  columns: ColumnOptions[] = [
+    { header: 'Nome', field: 'name' },
+    { header: 'Color', field: 'color', type: 'color' },
+    { header: 'Gasto fixo', field: 'fixedExpense', type: 'boolean' },
+  ];
 
   constructor(
     private categoryService: CategoryService,
@@ -31,28 +35,9 @@ export class CategoryComponent implements OnInit {
 
   getCategory(event?: any) {
     this.loading = true;
-    let paramList = {
-      page: 0,
-      size: this.pageSize,
-      sort: [
-        {
-          field: 'name',
-          order: 1,
-        },
-      ],
-    };
-    if (event) {
-      const page = event.first! / event.rows!; // Calcula a página com base no primeiro registro
-      const size = event.rows!;
-      paramList = {
-        ...paramList,
-        page: page,
-        size: size,
-      };
-    }
-    this.categoryService.list(paramList).subscribe((data: any) => {
-      this.data = data.content;
-      this.totalRecords = data.totalElements; // Define o total de registros para paginação
+
+    this.categoryService.listAll().subscribe((data: any) => {
+      this.data = data;
       this.loading = false;
     });
   }
@@ -131,9 +116,5 @@ export class CategoryComponent implements OnInit {
       this.formGroup.get('id')?.value,
       this.formGroup.getRawValue()
     );
-  }
-
-  onPageChange(event: any) {
-    console.log(event);
   }
 }

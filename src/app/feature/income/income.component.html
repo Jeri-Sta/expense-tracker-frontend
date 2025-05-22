@@ -1,44 +1,11 @@
-<p-table
-  [value]="incomesData"
-  [tableStyle]="{ 'min-width': '50rem' }"
+<ep-table
+  [displayHeader]="false"
+  [columns]="columns"
+  [data]="incomesData"
   [loading]="loading"
-  [rowHover]="true"
->
-  <ng-template #header>
-    <tr>
-      <th>Nome</th>
-      <th>Valor</th>
-      <th>Data</th>
-      <th pFrozenColumn></th>
-    </tr>
-  </ng-template>
-  <ng-template #body let-income>
-    <tr>
-      <td>{{ income.name }}</td>
-      <td>{{ income.value }}</td>
-      <td>{{ formatGridDate(income.incomeDate) }}</td>
-      <td
-        pFrozenColumn
-        style="display: flex; flex-direction: row-reverse; gap: 10px"
-      >
-        <p-button
-          icon="pi pi-trash"
-          severity="danger"
-          [rounded]="true"
-          [outlined]="true"
-          (click)="deleteIncome(income)"
-        />
-        <p-button
-          icon="pi pi-pencil"
-          class="mr-2"
-          [rounded]="true"
-          [outlined]="true"
-          (click)="editIncome(income)"
-        />
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+  (editRegister)="editIncome($event)"
+  (deleteRegister)="deleteIncome($event)"
+  ></ep-table>
 
 <p-dialog
   header="Renda"
