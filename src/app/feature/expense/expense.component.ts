@@ -35,7 +35,7 @@ export class ExpenseComponent implements OnInit {
     { header: 'Parcelas', field: 'installments' },
   ];
   columnsInstallments: ColumnOptions[] = [
-    { header: 'Nome', field: 'name' },
+    { header: 'Número', field: 'installmentNumber' },
     { header: 'Valor', field: 'value', type: 'currency' },
     { header: 'Data', field: 'installmentDate', type: 'date' },
   ];

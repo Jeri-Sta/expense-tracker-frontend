@@ -1,21 +1,36 @@
 <p-panel [showHeader]="displayHeader" [header]="title">
   <p-button *ngIf="displayHeader" (click)="newRegister.emit()" label="Novo" icon="pi pi-plus"></p-button>
   <p-table
+    dataKey="id"
     [value]="data"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rowHover]="true"
     [columns]="columns"
+    [expandedRowKeys]="{}"
   >
     <ng-template #header>
       <tr>
+        <th style="padding-right: 0; padding-left: 0; width: 3rem"></th>
         @for (column of columns; track column.header) {
           <th>{{ column.header }}</th>
         }
         <th pFrozenColumn></th>
       </tr>
     </ng-template>
-    <ng-template #body let-item>
+    <ng-template #body let-item let-expanded="expanded">
       <tr>
+        <td style="padding-right: 0; padding-left: 0" *ngIf="expandedColumns">
+          <p-button
+            *ngIf="item.installmentsRegisters.length > 0"
+            type="button"
+            pRipple
+            [pRowToggler]="item"
+            [text]="true"
+            [rounded]="true"
+            [plain]="true"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          />
+        </td>
         @for (column of columns; track column.field) {
           <td *ngIf="!column.type">{{ getFieldValue(item, column.field) }}</td>
           <td *ngIf="column.type === 'date'">
@@ -58,12 +73,12 @@
         </td>
       </tr>
     </ng-template>
-     <ng-template #expandedrow let-expense>
+    <ng-template #expandedrow let-item>
       <tr>
         <td colspan="10">
           <div>
             <p-table
-              [value]="expense.installmentsRegisters"
+              [value]="item.installmentsRegisters"
               dataKey="id"
               sortField="installmentNumber"
               [sortOrder]="1"
@@ -78,8 +93,8 @@
                 </tr>
               </ng-template>
               <ng-template #body let-item>
-                <tr [ngStyle]="getRowStyle(item)">
-                  @for (column of columns; track column.field) {
+                <tr [ngStyle]="rowStyle?.(item)">
+                  @for (column of expandedColumns; track column.field) {
                     <td *ngIf="!column.type">{{ getFieldValue(item, column.field) }}</td>
                     <td *ngIf="column.type === 'date'">
                       {{ item[column.field] | date: 'dd/MM/yyyy' }}

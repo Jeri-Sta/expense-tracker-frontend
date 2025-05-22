@@ -5,7 +5,7 @@
   [loading]="loading"
   (editRegister)="editExpense($event)"
   (deleteRegister)="deleteExpense($event)"
-  (rowStyle)="rowStyle($event)"
+  [rowStyle]="rowStyle.bind(this)"
   [expandedColumns]="columnsInstallments"
   ></ep-table>
 
