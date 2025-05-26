@@ -1,5 +1,9 @@
-<nav class="navbar">
+<div class="container-button">
+  <button class="hamburger" (click)="toggleMenu()">&#9776;</button>
+</div>
+<nav class="navbar" [ngClass]="{ closed: isClosed }">
   <div class="header">
+    <button class="close" (click)="toggleMenu()">&#10005;</button>
     <img src="assets/logo.png" alt="logo" />
     <p>Expense Tracker</p>
   </div>

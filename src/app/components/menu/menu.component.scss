@@ -1,3 +1,34 @@
+.container-button {
+  position: absolute;
+  width: 100%;
+  height: 7%;
+  display: none;
+  background-color: var(--p-primary-900);
+  z-index: 1000;
+
+  .hamburger {
+    display: none;
+    z-index: 1100;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--p-primary-200);
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container-button {
+    display: flex;
+  }
+}
+
 .navbar {
   background-color: var(--p-primary-900);
   height: 100vh;
@@ -5,6 +36,62 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--p-primary-600);
+
+  @media (max-width: 1024px) {
+    width: 200px;
+    min-width: 160px;
+    .header p {
+      font-size: 13px;
+    }
+    .body .menu p,
+    .body .routers ::ng-deep .p-button,
+    .body .logout ::ng-deep .p-button {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    height: auto;
+    flex-direction: column;
+    border-right: none;
+    border-bottom: 1px solid var(--p-primary-600);
+
+    
+    .body {
+      flex-direction: row;
+      gap: 0;
+      .menu, .routers, .logout {
+        width: 100%;
+        align-items: stretch;
+        .p-button {
+          width: 100%;
+        }
+      }
+      .routers, .logout {
+        padding: 1rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    width: 70vw;
+    min-width: 0;
+    max-width: 320px;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+
+    &.closed {
+      transform: translateX(-130%);
+    }
+  }
 
   .header {
     background-color: var(--p-primary-900);
@@ -17,6 +104,23 @@
     align-items: center;
     padding-right: 10%;
     border-bottom: 30px solid var(--p-primary-800);
+
+    .close {
+      display: none;
+      color: var(--p-primary-200);
+    }
+
+    @media (max-width: 768px) {
+      .close {
+        display: block;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .close {
+        display: block;
+      }
+    }
 
     img {
       height: 35px;

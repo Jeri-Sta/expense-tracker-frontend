@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class MenuComponent {
+  isClosed = true;
   menuItems = [
     { label: 'Dashboard', link: '/dashboard' },
     {
@@ -28,6 +29,11 @@ export class MenuComponent {
   }
 
   goTo(link: string) {
+    this.isClosed = true;
     this.router.navigate([link]);
+  }
+  
+  toggleMenu() {
+    this.isClosed = !this.isClosed;
   }
 }

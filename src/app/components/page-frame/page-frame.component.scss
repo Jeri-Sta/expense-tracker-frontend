@@ -9,5 +9,9 @@
     width: calc(100vh - 270px);
     max-height: 100vh;
     overflow-y: scroll;
+
+    @media (max-width: 768px) {
+      margin-top: 12%;
+    }
   }
 }

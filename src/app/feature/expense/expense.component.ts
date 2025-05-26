@@ -74,7 +74,6 @@ export class ExpenseComponent implements OnInit {
       )
       .subscribe((expenses: ExpenseDto[]) => {
         this.expensesData = expenses;
-        console.log(this.expensesData);
         this.loading = false;
         this.updateChart.emit(this.expensesData);
       });
