@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: row;
-  overflow: scroll;
+  overflow: hidden;
 
   .main-container {
     width: 100%;
@@ -89,6 +89,6 @@
     height: 100%;
     flex: 4;
     padding: 50px 70px;
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 }

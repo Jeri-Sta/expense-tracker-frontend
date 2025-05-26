@@ -142,6 +142,7 @@ export class IncomeComponent implements OnInit {
       )
       .subscribe((incomes: IncomeDto[]) => {
         this.incomesData = incomes;
+        console.log(incomes);
         this.loading = false;
       });
   }

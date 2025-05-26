@@ -1,0 +1,29 @@
+.empty-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    align-items: center;
+    color: #999;
+    gap: 1rem;
+
+    span {
+        font-size: 1.5rem;
+        color: var(--p-primary-200);
+        font-family: 'Jetbrains Mono', monospace;
+    }
+}
+
+.loading-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    align-items: center;
+    color: #999;
+    gap: 1rem;
+}

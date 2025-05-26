@@ -12,10 +12,12 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
+import { MessageModule } from 'primeng/message';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [MenuComponent, PageFrameComponent, InitPageFrameComponent, TableComponent],
-  imports: [CommonModule, RouterModule, PanelModule, ButtonModule, TableModule, ColorPickerModule, CheckboxModule, FormsModule, TagModule],
+  imports: [CommonModule, RouterModule, PanelModule, ButtonModule, TableModule, ColorPickerModule, CheckboxModule, FormsModule, TagModule, MessageModule, ProgressSpinnerModule],
   exports: [MenuComponent, PageFrameComponent, InitPageFrameComponent, TableComponent],
 })
 export class ComponentsModule {}
